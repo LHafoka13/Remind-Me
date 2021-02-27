@@ -13,7 +13,9 @@ const mysql = require("mysql");
 const con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "N!cholas15",
+
+  password: "Ettajames15!",
+
   database: "remind_me",
 });
 
@@ -29,4 +31,7 @@ app.use(function (req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+// Syncing our sequelize models and then starting our Express app
+db.sequelize.sync({ force: true }).then(() => {
+  app.listen(PORT, () => console.log(`Listening on PORT ${PORT}`));
+});
