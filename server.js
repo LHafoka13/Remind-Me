@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3001;
 
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Serve up static assets (usually on heroku)
@@ -14,7 +13,7 @@ const mysql = require("mysql");
 const con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Kahuku.13",
+  password: "Ettajames15!",
   database: "remind_me",
 });
 
@@ -30,4 +29,7 @@ app.use(function (req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+// Syncing our sequelize models and then starting our Express app
+db.sequelize.sync({ force: true }).then(() => {
+  app.listen(PORT, () => console.log(`Listening on PORT ${PORT}`));
+});
