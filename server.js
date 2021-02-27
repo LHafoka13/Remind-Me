@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3001;
 
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Serve up static assets (usually on heroku)
@@ -14,7 +13,7 @@ const mysql = require("mysql");
 const con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Kahuku.13",
+  password: "N!cholas15",
   database: "remind_me",
 });
 
