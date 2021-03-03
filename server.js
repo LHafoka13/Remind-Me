@@ -1,6 +1,10 @@
+require("dotenv").config();
 const express = require("express");
+const db = require("./client/models");
+// const mysql = require("mysql2");
+
 const app = express();
-const port = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3001;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -12,10 +16,8 @@ if (process.env.NODE_ENV === "production") {
 const mysql = require("mysql");
 const con = mysql.createConnection({
   host: "localhost",
-  user: "root",
-
-  password: "Ettajames15!",
-
+  user: process.env.DB_USER,
+  password: process.env.DB_PW,
   database: "remind_me",
 });
 
@@ -28,10 +30,10 @@ con.connect(function (err) {
 });
 
 app.use(function (req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+  res.sendFile(path.join(__dirname, "./client/public/index.html"));
 });
 
 // Syncing our sequelize models and then starting our Express app
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync().then(() => {
   app.listen(PORT, () => console.log(`Listening on PORT ${PORT}`));
 });
