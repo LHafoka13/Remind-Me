@@ -1,6 +1,6 @@
 require("dotenv").config();
 const express = require("express");
-const db = require("./client/public/models");
+const db = require("./client/models");
 // const mysql = require("mysql2");
 
 const app = express();
@@ -30,10 +30,10 @@ con.connect(function (err) {
 });
 
 app.use(function (req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+  res.sendFile(path.join(__dirname, "./client/public/index.html"));
 });
 
 // Syncing our sequelize models and then starting our Express app
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync().then(() => {
   app.listen(PORT, () => console.log(`Listening on PORT ${PORT}`));
 });
