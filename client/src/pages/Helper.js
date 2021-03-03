@@ -8,6 +8,7 @@ export default function Helper() {
       <Button variant="contained" color="primary">
         Click Me
       </Button>
+      <Button>Another One</Button>
     </div>
   );
 }
