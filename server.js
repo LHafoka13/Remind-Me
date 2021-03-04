@@ -1,35 +1,36 @@
+// Requiring necessary npm packages
 const express = require("express");
-const app = express();
-const port = process.env.PORT || 3001;
+const session = require("express-session");
+// Requiring passport as we've configured it
+const passport = require("./config/passport");
 
+// Setting up port and requiring models for syncing
+const PORT = process.env.PORT || 3000;
+const db = require("./models");
+
+// Creating express app and configuring middleware needed for authentication
+const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
+app.use(express.static("public"));
+// We need to use sessions to keep track of our user's login status
+app.use(
+  session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
-const mysql = require("mysql");
-const con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "Ettajames15!",
-  database: "remind_me",
-});
+// Requiring our routes
+require("./routes/html-routes.js")(app);
+require("./routes/api-routes.js")(app);
 
-con.connect(function (err) {
-  if (err) {
-    console.error("error connecting: " + err.stack);
-    return;
-  }
-  console.log("Connected!");
-});
-
-app.use(function (req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
-
-// Syncing our sequelize models and then starting our Express app
-db.sequelize.sync({ force: true }).then(() => {
-  app.listen(PORT, () => console.log(`Listening on PORT ${PORT}`));
+// Syncing our database and logging a message to the user upon success
+db.sequelize.sync().then(() => {
+  app.listen(PORT, () => {
+    console.log(
+      "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
+      PORT,
+      PORT
+    );
+  });
 });
