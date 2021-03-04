@@ -1,39 +1,53 @@
+
+// Requiring necessary npm packages
 require("dotenv").config();
 const express = require("express");
-const db = require("./client/models");
-// const mysql = require("mysql2");
+const session = require("express-session");
+// Requiring passport as we've configured it
+const passport = require("./config/passport");
 
+// Setting up port and requiring models for syncing
 const app = express();
 const PORT = process.env.PORT || 3001;
+const db = require("./client/models");
 
+
+// Creating express app and configuring middleware needed for authentication
+const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-const mysql = require("mysql");
-const con = mysql.createConnection({
-  host: "localhost",
-  user: process.env.DB_USER,
-  password: process.env.DB_PW,
-  database: "remind_me",
-});
-
-con.connect(function (err) {
-  if (err) {
-    console.error("error connecting: " + err.stack);
-    return;
-  }
-  console.log("Connected!");
-});
+app.use(express.static("public"));
+// We need to use sessions to keep track of our user's login status
+app.use(
+  session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(function (req, res) {
   res.sendFile(path.join(__dirname, "./client/public/index.html"));
 });
 
-// Syncing our sequelize models and then starting our Express app
+
+// Requiring our routes
+require("./routes/html-routes.js")(app);
+require("./routes/api-routes.js")(app);
+
+// Syncing our database and logging a message to the user upon success
 db.sequelize.sync().then(() => {
-  app.listen(PORT, () => console.log(`Listening on PORT ${PORT}`));
+  app.listen(PORT, () => {
+    console.log(
+      "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
+      PORT,
+      PORT
+    );
+  });
+
 });
