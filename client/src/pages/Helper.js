@@ -1,14 +1,16 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
+// import TimePicker from "../components/Calendar/TimePicker";
+import Calendar from "../components/Calendar/Calendar";
+import Container from "@material-ui/core/Container";
+import ReminderButton from "../components/ReminderButton/ReminderButton";
 
 export default function Helper() {
   return (
     <div>
-      <h1>Helper</h1>
-      <Button variant="contained" color="primary">
-        Click Me
-      </Button>
-      <Button>Another One</Button>
+      <Container>
+        <ReminderButton />
+        <Calendar />
+      </Container>
     </div>
   );
 }
