@@ -1,8 +1,7 @@
 {
-  "name": "remind-me",
+  "name": "projectpractice",
   "version": "1.0.0",
-  "description": "This is an app to assist end users experiencing memory loss"
-,
+  "description": "",
   "main": "server.js",
   "scripts": {
     "watch": "nodemon server.js",
@@ -21,18 +20,17 @@
   "dependencies": {
     "bcryptjs": "2.4.3",
     "concurrently": "^6.0.0",
+    "express": "^4.17.0",
     "express-session": "^1.16.1",
     "mysql2": "^1.6.5",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "react-router-dom": "^5.2.0",
     "@material-ui/core": "^4.11.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "if-env": "^1.0.4",
-    "mysql": "^2.18.1",
-    "mysql2": "^2.2.5",
     "react": "^17.0.1",
-    "react-router-dom": "^5.2.0",
     "sequelize": "^6.5.0"
   },
   "devDependencies": {
@@ -41,6 +39,5 @@
     "cross-env": "^5.2.0",
     "mocha": "^5.2.0",
     "prettier": "^1.13.7"
-
   }
 }

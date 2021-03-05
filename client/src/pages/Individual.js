@@ -1,5 +1,6 @@
 import React from "react";
-import Calendar from "../components/Calendar/Calendar"
+// import TimePicker from "../components/Calendar/TimePicker";
+import Calendar from "../components/Calendar/Calendar";
 
 export default function Individual() {
   return (

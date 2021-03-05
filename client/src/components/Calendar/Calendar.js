@@ -1,63 +1,70 @@
-import React from "react";
-import "date-fns";
-import Grid from "@material-ui/core/Grid";
-import DateFnsUtils from "@date-io/date-fns";
+import * as React from "react";
+import Paper from "@material-ui/core/Paper";
+import { ViewState } from "@devexpress/dx-react-scheduler";
 import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
+  Scheduler,
+  WeekView,
+  Appointments,
+  Toolbar,
+  ViewSwitcher,
+  MonthView,
+  DayView,
+} from "@devexpress/dx-react-scheduler-material-ui";
 
+const appointments = [
+  {
+    startDate: "2018-11-01T09:45",
+    endDate: "2018-11-01T11:00",
+    title: "Meeting",
+  },
+  {
+    startDate: "2018-11-01T12:00",
+    endDate: "2018-11-01T13:30",
+    title: "Go to a gym",
+  },
+];
 
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-export default function Calendar() {
-  // The first commit of Material-UI
-  const [selectedDate, setSelectedDate] = React.useState(
-    new Date("2014-08-18T21:11:54")
-  );
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
-  return (
-    <div>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <Grid container justify="space-around">
-          <KeyboardDatePicker
-            disableToolbar
-            variant="inline"
-            format="MM/dd/yyyy"
-            margin="normal"
-            id="date-picker-inline"
-            label="Date picker inline"
-            value={selectedDate}
-            onChange={handleDateChange}
-            KeyboardButtonProps={{
-              "aria-label": "change date",
-            }}
+    this.state = {
+      data: appointments,
+      currentViewName: "work-week",
+    };
+    this.currentViewNameChange = (currentViewName) => {
+      this.setState({ currentViewName });
+    };
+  }
+
+  render() {
+    const { data, currentViewName } = this.state;
+
+    return (
+      <Paper>
+        <Scheduler data={data} height={660}>
+          <ViewState
+            defaultCurrentDate="2018-07-25"
+            currentViewName={currentViewName}
+            onCurrentViewNameChange={this.currentViewNameChange}
           />
-          <KeyboardDatePicker
-            margin="normal"
-            id="date-picker-dialog"
-            label="Date picker dialog"
-            format="MM/dd/yyyy"
-            value={selectedDate}
-            onChange={handleDateChange}
-            KeyboardButtonProps={{
-              "aria-label": "change date",
-            }}
+
+          <WeekView startDayHour={10} endDayHour={19} />
+          <WeekView
+            name="work-week"
+            displayName="Work Week"
+            excludedDays={[0, 6]}
+            startDayHour={9}
+            endDayHour={19}
           />
-          <KeyboardTimePicker
-            margin="normal"
-            id="time-picker"
-            label="Time picker"
-            value={selectedDate}
-            onChange={handleDateChange}
-            KeyboardButtonProps={{
-              "aria-label": "change time",
-            }}
-          />
-        </Grid>
-      </MuiPickersUtilsProvider>
-    </div>
-  );
+          <MonthView />
+          <DayView />
+
+          <Toolbar />
+          <ViewSwitcher />
+          <Appointments />
+        </Scheduler>
+      </Paper>
+    );
+  }
 }
