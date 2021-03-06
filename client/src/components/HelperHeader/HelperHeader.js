@@ -17,8 +17,8 @@ export default function NavBar() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root} spacing={2}>
-      <AppBar position="static">
+    <div className={classes.root} className="p-4">
+      <AppBar position="static" spacing={2}>
         <Toolbar>
           <Typography variant="h4" className={classes.title}>
             Welcome Helper Name!
