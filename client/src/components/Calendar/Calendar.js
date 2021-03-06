@@ -134,8 +134,8 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <Paper>
-        <Scheduler data={data} height={660}>
+      <Paper elevation={3} className="calendarHeight">
+        <Scheduler data={data}>
           <ViewState
             defaultCurrentDate="2018-07-25"
             currentViewName={currentViewName}
