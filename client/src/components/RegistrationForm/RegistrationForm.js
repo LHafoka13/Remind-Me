@@ -38,7 +38,7 @@ export default function RegistrationForm() {
 
   return (
     <div>
-      <Paper elevation={3} className="formHolder">
+      <Paper elevation={3} className="registrationHolder">
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className={classes.paper}>
