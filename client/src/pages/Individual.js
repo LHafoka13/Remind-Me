@@ -6,11 +6,9 @@ import AppBar from "../components/AppBar/AppBar";
 
 export default function Individual() {
   return (
-    <div>
+    <div className="background">
       <AppBar />
       <Container>
-        <HelperHeader />
-
         <Calendar />
       </Container>
     </div>

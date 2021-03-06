@@ -9,7 +9,7 @@ import "./App.css";
 function App() {
   return (
     <Router>
-      <div className="App background">
+      <div className="App">
         <Switch>
           <Route exact path={["/", "home"]}>
             <Home />

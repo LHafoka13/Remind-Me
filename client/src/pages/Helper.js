@@ -7,7 +7,7 @@ import AppBar from "../components/AppBar/AppBar";
 
 export default function Helper() {
   return (
-    <div>
+    <div className="background">
       <AppBar />
       <Container>
         <HelperHeader />
