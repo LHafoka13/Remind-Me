@@ -17,6 +17,10 @@ height: 100vh;
     height: 550px;
 }
 
+.calendarHeight {
+    height: 400px;
+}
+
 @media only screen and (min-width: 768px) {
 .background {
 background: #A770EF;  /* fallback for old browsers */
@@ -35,6 +39,10 @@ height: 100vh;
     margin-left: 20px;
     margin-right: 20px;
     height: 550px;
+}
+
+.calendarHeight {
+    height: 650px;
 }
 
 }
@@ -63,6 +71,10 @@ height: 100vh;
 .registrationHolder {
     margin-left: 500px;
     margin-right: 500px;
+    height: 500px;
+}
+
+.calendarHeight {
     height: 500px;
 }
 
