@@ -54,11 +54,11 @@ const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
       onFieldChange={onFieldChange}
       {...restProps}
     >
-      <AppointmentForm.Label text="Custom Field" type="title" />
+      <AppointmentForm.Label text="Notes" type="title" />
       <AppointmentForm.TextEditor
         value={appointmentData.customField}
         onValueChange={onCustomFieldChange}
-        placeholder="Custom field"
+        placeholder="Optional"
       />
       <AppointmentForm.Label text="Member" type="title" />
       <AppointmentForm.TextEditor
