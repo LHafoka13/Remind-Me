@@ -8,6 +8,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TimePicker from "../Calendar/TimePicker";
+import MemberList from "../MemberDropDown/MemberDropDown";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,16 +45,13 @@ export default function ReminderButton() {
         <DialogTitle id="form-dialog-title">New Reminder</DialogTitle>
         <DialogContent>
           <TimePicker />
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
-          </DialogContentText>
+          <MemberList />
           <TextField
             autoFocus
             margin="dense"
-            id="name"
-            label="MVP"
-            type="email"
+            id="reminder"
+            label="Reminder"
+            type="text"
             fullWidth
           />
         </DialogContent>
