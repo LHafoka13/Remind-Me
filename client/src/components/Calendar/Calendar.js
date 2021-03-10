@@ -24,6 +24,7 @@ Date.prototype.addHours = function(h) {
 };
 
 const appointments = [
+  //make this our fetch call?
   {
     startDate: new Date().toISOString(),
     endDate: new Date().addHours(24).toISOString(),

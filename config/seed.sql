@@ -1,0 +1,1 @@
+INSERT INTO appointments (title, startDate, endDate, description, member, rRule, createdAt, updatedAt) VALUES ("Take Pills", "2021-03-05T09:45", "2021-03-05T11:00", "Take all 5 pills", true, 'FREQ=DAILY;COUNT=3', CURDATE(), CURDATE());
