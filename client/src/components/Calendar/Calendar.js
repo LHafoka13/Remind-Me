@@ -27,7 +27,7 @@ const appointments = [
   //make this our fetch call?
   {
     startDate: new Date().toISOString(),
-    endDate: new Date().addHours(24).toISOString(),
+    endDate: new Date().addHours(2).toISOString(),
     rRule: "FREQ=DAILY;COUNT=2",
     title: "Meeting",
   },
@@ -89,7 +89,7 @@ export default class Demo extends React.PureComponent {
       addedAppointment: {},
       appointmentChanges: {},
       editingAppointment: undefined,
-    };
+    }; 
     this.currentViewNameChange = (currentViewName) => {
       this.setState({ currentViewName });
     };
