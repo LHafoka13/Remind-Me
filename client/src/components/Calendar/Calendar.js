@@ -18,10 +18,16 @@ import {
   ConfirmationDialog,
 } from "@devexpress/dx-react-scheduler-material-ui";
 
+Date.prototype.addHours = function(h) {
+  this.setTime(this.getTime() + h * 60 * 60 * 1000);
+  return this;
+};
+
 const appointments = [
   {
-    startDate: "2021-03-05T09:45",
-    endDate: "2021-03-05T11:00",
+    startDate: new Date().toISOString(),
+    endDate: new Date().addHours(24).toISOString(),
+    rRule: "FREQ=DAILY;COUNT=2",
     title: "Meeting",
   },
   {
@@ -30,6 +36,8 @@ const appointments = [
     title: "Go to a gym",
   },
 ];
+
+console.log(appointments);
 
 const messages = {
   moreInformationLabel: "",
@@ -127,6 +135,7 @@ export default class Demo extends React.PureComponent {
   render() {
     const {
       data,
+      currentDate,
       currentViewName,
       addedAppointment,
       appointmentChanges,
@@ -137,7 +146,7 @@ export default class Demo extends React.PureComponent {
       <Paper elevation={3} className="calendarHeight">
         <Scheduler data={data}>
           <ViewState
-            defaultCurrentDate="2018-07-25"
+            defaultCurrentDate={new Date()}
             currentViewName={currentViewName}
             onCurrentViewNameChange={this.currentViewNameChange}
           />
