@@ -18,27 +18,16 @@ import {
   ConfirmationDialog,
 } from "@devexpress/dx-react-scheduler-material-ui";
 
-Date.prototype.addHours = function(h) {
-  this.setTime(this.getTime() + h * 60 * 60 * 1000);
-  return this;
-};
+import Button from "@material-ui/core/Button";
+import Fab from "@material-ui/core/Fab";
+import IconButton from "@material-ui/core/IconButton";
+import AddIcon from "@material-ui/icons/Add";
 
-const appointments = [
-  //make this our fetch call?
-  {
-    startDate: new Date().toISOString(),
-    endDate: new Date().addHours(2).toISOString(),
-    rRule: "FREQ=DAILY;COUNT=2",
-    title: "Meeting",
-  },
-  {
-    startDate: "2021-03-05T12:00",
-    endDate: "2021-03-05T13:30",
-    title: "Go to a gym",
-  },
-];
+// Date.prototype.addHours = function(h) {
+//   this.setTime(this.getTime() + h * 60 * 60 * 1000);
+//   return this;
+// };
 
-console.log(appointments);
 
 const messages = {
   moreInformationLabel: "",
@@ -70,7 +59,7 @@ const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
         placeholder="Optional"
       />
       <AppointmentForm.Label text="Member" type="title" />
-      <AppointmentForm.TextEditor
+      <AppointmentForm.Select
         value={appointmentData.customField}
         onValueChange={onCustomFieldChange}
         placeholder="Member"
@@ -84,12 +73,18 @@ export default class Demo extends React.PureComponent {
     super(props);
 
     this.state = {
-      data: appointments,
+      // data: appointments,
       currentViewName: "month",
       addedAppointment: {},
       appointmentChanges: {},
       editingAppointment: undefined,
-    }; 
+
+  
+
+      appointments: [],
+    };
+
+
     this.currentViewNameChange = (currentViewName) => {
       this.setState({ currentViewName });
     };
@@ -99,9 +94,23 @@ export default class Demo extends React.PureComponent {
     this.changeEditingAppointment = this.changeEditingAppointment.bind(this);
   }
 
+  componentDidMount = () => {
+    this.getAppointments();
+  };
+
   changeAddedAppointment(addedAppointment) {
     this.setState({ addedAppointment });
   }
+
+  getAppointments = () => {
+    fetch("/api/appointments")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("success in getting appointments:", data);
+        this.setState({ appointments: data });
+      })
+      .catch((error) => console.error("error:", error));
+  };
 
   changeAppointmentChanges(appointmentChanges) {
     this.setState({ appointmentChanges });
@@ -136,16 +145,16 @@ export default class Demo extends React.PureComponent {
   render() {
     const {
       data,
-      currentDate,
       currentViewName,
       addedAppointment,
       appointmentChanges,
       editingAppointment,
     } = this.state;
+    const { classes } = this.props;
 
     return (
       <Paper elevation={3} className="calendarHeight">
-        <Scheduler data={data}>
+        <Scheduler data={this.state.appointments}>
           <ViewState
             defaultCurrentDate={new Date()}
             currentViewName={currentViewName}
@@ -185,6 +194,19 @@ export default class Demo extends React.PureComponent {
             messages={messages}
           />
         </Scheduler>
+        <Fab
+          color="secondary"
+          onClick={() => {
+            this.setState({ editingFormVisible: true });
+            this.onEditingAppointmentChange(undefined);
+            this.onAddedAppointmentChange({
+              startDate: new Date(currentDate).setHours(startDayHour),
+              endDate: new Date(currentDate).setHours(startDayHour + 1),
+            });
+          }}
+        >
+          <AddIcon />
+        </Fab>
       </Paper>
     );
   }

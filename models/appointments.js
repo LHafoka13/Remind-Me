@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Appointment = sequelize.define("Appointment", {
+  const Appointments = sequelize.define("Appointments", {
     // Giving the Author model a name of type STRING
     title: { type: DataTypes.STRING, allowNull: false },
     startDate: { type: DataTypes.STRING, allowNull: false },
@@ -10,5 +10,5 @@ module.exports = (sequelize, DataTypes) => {
     rRule: DataTypes.STRING,
   });
 
-  return Appointment;
+  return Appointments;
 };

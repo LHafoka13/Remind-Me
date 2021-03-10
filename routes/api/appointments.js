@@ -1,6 +1,8 @@
 // Requiring our models
+
 const db = require("../../models");
 
+console.log(db.Appointments);
 // Routes
 module.exports = (app) => {
   // GET route for getting all of the appointments
@@ -13,11 +15,11 @@ module.exports = (app) => {
   app.post("/api/helper/appointments", (req, res) => {
     db.Appointments.create({
       title: req.body.title,
-      startDate: req.body.dateTime,
-      endDate: req.body.dateTime, //formatting on this item...
+      startDate: req.body.startDate,
+      endDate: req.body.endDate, //formatting on this item...
       description: req.body.description,
       member: req.body.member,
-      repeat: req.body.repeat,
+      rRule: req.body.rRule,
       //   make this each box of the table?
       //   can we use state here? or form submit?
     })
