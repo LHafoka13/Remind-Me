@@ -78,8 +78,12 @@ export default class Demo extends React.PureComponent {
       addedAppointment: {},
       appointmentChanges: {},
       editingAppointment: undefined,
+
+  
+
       appointments: [],
     };
+
 
     this.currentViewNameChange = (currentViewName) => {
       this.setState({ currentViewName });

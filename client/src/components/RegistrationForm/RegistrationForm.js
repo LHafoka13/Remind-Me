@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -33,8 +33,49 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 export default function RegistrationForm() {
   const classes = useStyles();
+
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [helper, setHelper] = useState();
+
+  const [userObject, setUserObject] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    helper: false
+  })
+
+ const handleTextInput = (event) => {
+    console.log(event);
+    let userInput = event.target.value;
+    let inputName = event.target.name;
+    let user = {
+      firstName: userObject.firstName,
+      lastName: userObject.lastName,
+      email: userObject.email,
+      password: userObject.password,
+      helper: userObject.helper,
+    };
+    setUserObject(prevUserObject => ({...prevUserObject, [inputName]: userInput}))
+  }
+  
+  useEffect(() => {
+    console.log(userObject);
+  }, [userObject])
+
+  const handleChecked = (event) => {
+    setUserObject((prevUserObject) => ({
+      ...prevUserObject,
+      helper: event.target.checked
+    }));
+  }
 
   return (
     <div>
@@ -50,7 +91,7 @@ export default function RegistrationForm() {
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    autoComplete="fname"
+                    // autoComplete="fname"
                     name="firstName"
                     variant="outlined"
                     required
@@ -58,6 +99,7 @@ export default function RegistrationForm() {
                     id="firstName"
                     label="First Name"
                     autoFocus
+                    onChange={handleTextInput}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -68,7 +110,8 @@ export default function RegistrationForm() {
                     id="lastName"
                     label="Last Name"
                     name="lastName"
-                    autoComplete="lname"
+                    // autoComplete="lname"
+                    onChange={handleTextInput}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -79,7 +122,8 @@ export default function RegistrationForm() {
                     id="email"
                     label="Email Address"
                     name="email"
-                    autoComplete="email"
+                    // autoComplete="email"
+                    onChange={handleTextInput}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -91,12 +135,22 @@ export default function RegistrationForm() {
                     label="Password"
                     type="password"
                     id="password"
-                    autoComplete="current-password"
+                    // autoComplete="current-password"
+                    onChange={handleTextInput}
                   />
                 </Grid>
                 <Grid item xs={6}>
                   <FormControlLabel
-                    control={<Checkbox value="helper" color="primary" />}
+                    // name="helper"
+                    // onChange={handleTextInput}
+                    control={
+                      <Checkbox
+                        value={userObject.helper}
+                        color="primary"
+                        name="helper"
+                        onChange={handleChecked}
+                      />
+                    }
                     label="Helper"
                   />
                 </Grid>
