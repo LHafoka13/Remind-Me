@@ -21,12 +21,12 @@ export default function NavBar() {
       <AppBar position="static" spacing={2}>
         <Toolbar>
           <Typography variant="h4" className={classes.title}>
-            Welcome Helper Name!
+            Welcome Member Name!
           </Typography>
         </Toolbar>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            You Have XX Reminders XX for Members
+            You Have XX Reminders
           </Typography>
         </Toolbar>
       </AppBar>
