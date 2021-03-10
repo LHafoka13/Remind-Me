@@ -40,8 +40,5 @@ db.sequelize.sync().then(() => {
       PORT,
       PORT
     );
-
-  })
-
   });
-
+});

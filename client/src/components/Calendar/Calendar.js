@@ -19,6 +19,7 @@ import {
 } from "@devexpress/dx-react-scheduler-material-ui";
 
 const appointments = [
+  //make this our fetch call?
   {
     startDate: "2021-03-05T09:45",
     endDate: "2021-03-05T11:00",
