@@ -1,6 +1,6 @@
 import React from "react";
 import SignIn from "../components/SignInForm/SignInForm";
-import AppBar from "../components/AppBar/AppBar";
+import AppBar from "../components/AppBars/AppBar";
 
 export default function Home() {
   return (
