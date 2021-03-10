@@ -1,14 +1,15 @@
 import React from "react";
-import HelperHeader from "../components/HelperHeader/HelperHeader";
 import Container from "@material-ui/core/Container";
 import Calendar from "../components/Calendar/Calendar";
-import AccountAppBar from "../components/AppBars/AccountAppBar"
+import AccountAppBar from "../components/AppBars/AccountAppBar";
+import MemberHeader from "../components/MemberHeader/MemberHeader";
 
-export default function Individual() {
+export default function Member() {
   return (
     <div className="background">
       <AccountAppBar />
       <Container>
+        <MemberHeader />
         <Calendar />
       </Container>
     </div>

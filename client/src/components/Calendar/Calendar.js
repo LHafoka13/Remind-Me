@@ -17,12 +17,17 @@ import {
   AppointmentTooltip,
   ConfirmationDialog,
 } from "@devexpress/dx-react-scheduler-material-ui";
-// import API from "../../../../controllers/appointmentController"
+
+import Button from "@material-ui/core/Button";
+import Fab from "@material-ui/core/Fab";
+import IconButton from "@material-ui/core/IconButton";
+import AddIcon from "@material-ui/icons/Add";
 
 // Date.prototype.addHours = function(h) {
 //   this.setTime(this.getTime() + h * 60 * 60 * 1000);
 //   return this;
 // };
+
 
 const messages = {
   moreInformationLabel: "",
@@ -54,7 +59,7 @@ const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
         placeholder="Optional"
       />
       <AppointmentForm.Label text="Member" type="title" />
-      <AppointmentForm.TextEditor
+      <AppointmentForm.Select
         value={appointmentData.customField}
         onValueChange={onCustomFieldChange}
         placeholder="Member"
@@ -136,12 +141,12 @@ export default class Demo extends React.PureComponent {
   render() {
     const {
       data,
-      currentDate,
       currentViewName,
       addedAppointment,
       appointmentChanges,
       editingAppointment,
     } = this.state;
+    const { classes } = this.props;
 
     return (
       <Paper elevation={3} className="calendarHeight">
@@ -185,6 +190,19 @@ export default class Demo extends React.PureComponent {
             messages={messages}
           />
         </Scheduler>
+        <Fab
+          color="secondary"
+          onClick={() => {
+            this.setState({ editingFormVisible: true });
+            this.onEditingAppointmentChange(undefined);
+            this.onAddedAppointmentChange({
+              startDate: new Date(currentDate).setHours(startDayHour),
+              endDate: new Date(currentDate).setHours(startDayHour + 1),
+            });
+          }}
+        >
+          <AddIcon />
+        </Fab>
       </Paper>
     );
   }

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Helper from "./pages/Helper";
-import Individual from "./pages/Individual";
+import Member from "./pages/Member";
 import "./App.css";
 
 function App() {
@@ -20,8 +20,8 @@ function App() {
           <Route exact path={["/helper", "helper"]}>
             <Helper />
           </Route>
-          <Route exact path={["/individual", "individual"]}>
-            <Individual />
+          <Route exact path={["/member", "individual"]}>
+            <Member />
           </Route>
         </Switch>
       </div>
