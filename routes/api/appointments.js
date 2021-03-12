@@ -28,7 +28,7 @@ module.exports = (app) => {
   });
 
   // DELETE route for deleting appt using the id (req.params.id)
-  app.delete("/api/helper/appointments/:id", (req, res) => {
+  app.delete("/api/appointments/:id", (req, res) => {
     // We just have to specify which appt we want to destroy with "where"
     db.Appointments.destroy({
       where: {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
+import API from "../../utils/API";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,6 +34,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn() {
+  //Set components initial state
+  const [users, setUsers] = useState([]);
+
+  //Load all users and store them with setUsers
+  useEffect(() => {
+    console.log(users);
+  }, [users]);
+
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
+  // Loads all users and sets them to users
+  function loadUsers() {
+    API.getUsers()
+      .then((res) => setUsers(res.data))
+      .catch((err) => console.log(err));
+  }
+
   const classes = useStyles();
 
   return (

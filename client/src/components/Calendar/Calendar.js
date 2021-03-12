@@ -31,6 +31,13 @@ const TextEditor = (props) => {
 };
 
 const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
+  console.log(appointmentData);
+
+  // appointmentData.startDate = appointmentData.startDate.toString();
+  // appointmentData.endDate = appointmentData.endDate.toString();
+
+  console.log(appointmentData);
+
   const onCustomFieldChange = (nextValue) => {
     onFieldChange({ customField: nextValue });
   };
@@ -98,14 +105,18 @@ export default class Demo extends React.PureComponent {
   };
 
   changeAppointmentChanges(appointmentChanges) {
+    console.log("appointment change");
     this.setState({ appointmentChanges });
   }
 
+  //this runs when the appointment Form is opened
   changeEditingAppointment(editingAppointment) {
+    console.log("editing");
     this.setState({ editingAppointment });
   }
 
   commitChanges({ added, changed, deleted }) {
+    console.log("deleting");
     this.setState((state) => {
       let { addedAppointment } = state;
 
@@ -113,15 +124,17 @@ export default class Demo extends React.PureComponent {
         title: addedAppointment.title,
         startDate: addedAppointment.startDate,
         endDate: addedAppointment.endDate, //formatting on this item...
-        description: "something",
-        member: true,
-        rRule: "FREQ=DAILY;COUNT=3",
+        description: addedAppointment.description,
+        member: "Robby",
+        rRule: addedAppointment.rRule,
         //   make this each box of the table?
         //   can we use state here? or form submit?
       };
 
+      console.log("----Body----");
       console.log(body);
 
+      console.log("----State----");
       console.log(state);
       if (added) {
         fetch("/api/helper/appointments", {
@@ -147,14 +160,17 @@ export default class Demo extends React.PureComponent {
           );
         }
         if (deleted !== undefined) {
-          // fetch("api/helper/appoiments/:id", {
-          //   method: "DELETE",
-          //   headers: {
-          //     "Content-Type": "application/json",
-          //   },
-          //   body: JSON.stringify(body),
-          // })
-          data = data.filter((appointment) => appointment.id !== deleted);
+          fetch("api/appointments/:id", {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            where: {
+              id: req.params.id,
+            },
+          }).then((response) => response.json());
+          this.getAppointments();
+          // data = data.filter((appointment) => appointment.id !== deleted);
         }
         // return { data };
       }
