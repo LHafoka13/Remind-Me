@@ -67,11 +67,8 @@ export default class Demo extends React.PureComponent {
       appointmentChanges: {},
       editingAppointment: undefined,
 
-  
-
       appointments: [],
     };
-
 
     this.currentViewNameChange = (currentViewName) => {
       this.setState({ currentViewName });
@@ -117,14 +114,16 @@ export default class Demo extends React.PureComponent {
         startDate: addedAppointment.startDate,
         endDate: addedAppointment.endDate, //formatting on this item...
         description: "something",
-        member: true,
-        rRule: "FREQ=DAILY;COUNT=3",
+        member: "Robby",
+        rRule: addedAppointment.rRule,
         //   make this each box of the table?
         //   can we use state here? or form submit?
       };
 
+      console.log("----Body----");
       console.log(body);
 
+      console.log("----State----");
       console.log(state);
       if (added) {
         fetch("/api/helper/appointments", {
