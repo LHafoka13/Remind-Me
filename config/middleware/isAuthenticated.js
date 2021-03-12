@@ -1,10 +1,23 @@
-// // This is middleware for restricting routes a user is not allowed to visit if not logged in
-// module.exports = function(req, res, next) {
-//   // If the user is logged in, continue with the request to the restricted route
-//   if (req.user) {
-//     return next();
-//   }
+const isAuthenticated = {
+  isLoggedIn: (req, res, next) => {
+    if (req.isAuthenticated()) {
+      console.log("user authenticated");
+      next();
+    } else {
+      console.log("user not authenticated");
+      res.redirect("/api/users/unauthorized");
+    }
+  },
 
-//   // If the user isn't logged in, redirect them to the login page
-//   return res.redirect("/");
-// };
+  logoutUser: (req, res, next) => {
+    if (req.isAuthenticated()) {
+      console.log("logged out successfully");
+      req.logout();
+      next();
+    } else {
+      next();
+    }
+  },
+};
+
+module.exports = isAuthenticated;
