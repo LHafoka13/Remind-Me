@@ -18,17 +18,6 @@ import {
   ConfirmationDialog,
 } from "@devexpress/dx-react-scheduler-material-ui";
 
-import Button from "@material-ui/core/Button";
-import Fab from "@material-ui/core/Fab";
-import IconButton from "@material-ui/core/IconButton";
-import AddIcon from "@material-ui/icons/Add";
-
-// Date.prototype.addHours = function(h) {
-//   this.setTime(this.getTime() + h * 60 * 60 * 1000);
-//   return this;
-// };
-
-
 const messages = {
   moreInformationLabel: "",
 };
@@ -73,7 +62,6 @@ export default class Demo extends React.PureComponent {
     super(props);
 
     this.state = {
-      // data: appointments,
       currentViewName: "month",
       addedAppointment: {},
       appointmentChanges: {},
@@ -118,35 +106,67 @@ export default class Demo extends React.PureComponent {
 
   commitChanges({ added, changed, deleted }) {
     this.setState((state) => {
-      let { data } = state;
+      let { addedAppointment } = state;
+
+      let body = {
+        title: addedAppointment.title,
+        startDate: addedAppointment.startDate,
+        endDate: addedAppointment.endDate, //formatting on this item...
+        description: "something",
+        member: true,
+        rRule: "FREQ=DAILY;COUNT=3",
+        //   make this each box of the table?
+        //   can we use state here? or form submit?
+      };
+
+      console.log(body);
+
+      console.log(state);
       if (added) {
-        const startingAddedId =
-          data.length > 0 ? data[data.length - 1].id + 1 : 0;
-        data = [...data, { id: startingAddedId, ...added }];
+        fetch("/api/helper/appointments", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body), //not sure which variable to capture here
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // const startingAddedId =
+            //   data.length > 0 ? data[data.length - 1].id + 1 : 0;
+            // data = [...data, { id: startingAddedId, ...added }];
+            this.getAppointments();
+          })
+          .catch((err) => console.error(err));
+        if (changed) {
+          data = data.map((appointment) =>
+            changed[appointment.id]
+              ? { ...appointment, ...changed[appointment.id] }
+              : appointment
+          );
+        }
+        if (deleted !== undefined) {
+          // fetch("api/helper/appoiments/:id", {
+          //   method: "DELETE",
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //   },
+          //   body: JSON.stringify(body),
+          // })
+          data = data.filter((appointment) => appointment.id !== deleted);
+        }
+        // return { data };
       }
-      if (changed) {
-        data = data.map((appointment) =>
-          changed[appointment.id]
-            ? { ...appointment, ...changed[appointment.id] }
-            : appointment
-        );
-      }
-      if (deleted !== undefined) {
-        data = data.filter((appointment) => appointment.id !== deleted);
-      }
-      return { data };
     });
   }
 
   render() {
     const {
-      data,
       currentViewName,
       addedAppointment,
       appointmentChanges,
       editingAppointment,
     } = this.state;
-    const { classes } = this.props;
 
     return (
       <Paper elevation={3} className="calendarHeight">
@@ -190,19 +210,6 @@ export default class Demo extends React.PureComponent {
             messages={messages}
           />
         </Scheduler>
-        <Fab
-          color="secondary"
-          onClick={() => {
-            this.setState({ editingFormVisible: true });
-            this.onEditingAppointmentChange(undefined);
-            this.onAddedAppointmentChange({
-              startDate: new Date(currentDate).setHours(startDayHour),
-              endDate: new Date(currentDate).setHours(startDayHour + 1),
-            });
-          }}
-        >
-          <AddIcon />
-        </Fab>
       </Paper>
     );
   }

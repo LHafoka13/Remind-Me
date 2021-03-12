@@ -26,7 +26,7 @@ export default function NavBar() {
         </Toolbar>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            You Have XX Reminders XX for Members
+            You Have XX Reminders for XX Members
           </Typography>
         </Toolbar>
       </AppBar>
