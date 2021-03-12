@@ -3,6 +3,8 @@ require("dotenv").config();
 
 const express = require("express");
 const session = require("express-session");
+const bodyParser = require("body-parser");
+
 // Requiring passport as we've configured it
 // const passport = require("./config/passport");
 
@@ -14,6 +16,8 @@ const db = require("./models");
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
