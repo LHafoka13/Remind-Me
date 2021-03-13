@@ -3,6 +3,8 @@
 const db = require("../../models");
 const passport = require("../../config/passport");
 const authMiddleware = require("../../config/middleware/isAuthenticated");
+const bodyParser = require("body-parser");
+const jsonParser = bodyParser.json();
 
 module.exports = (app) => {
   app.post(
@@ -21,35 +23,30 @@ module.exports = (app) => {
   );
 
   //post route for adding new user to the db
-  app.post("/signup", function(req, res, next) {
-    db.User.findOne({ email: req.body.email }, function(err, user) {
-      if (err) throw err;
+  app.post("/api/users", jsonParser, function(req, res, next) {
+    // console.log("email", req.body);
+    db.User.findOne({ where: { email: req.body.email } }).then((user, err) => {
+      if (err) console.log("something went awry", err); 
+      console.log("we got here", user);
       if (user) {
-        console.log("user already exists");
-        return res.json("user already exists");
-      }
-      if (!user) {
-        db.User.findOne({ email: req.body.email }, function(err, useremail) {
-          if (err) throw err;
-          if (useremail) {
-            return res.json("email is already in use");
-          }
-          if (!useremail) {
-            let newUser = new db.User({
-              firstname: req.body.firstname,
-              lastname: req.body.lastname,
-              email: req.body.email,
-              password: req.body.password,
-              helper: req.body.helper,
-            });
-            newUser.password = newUser.generateHash(req.body.password);
-            newUser.save(function(err) {
-              if (err) throw err;
-              console.log("user saved!");
-              res.redirect(307, "/api/users/login");
-            });
-          }
+        console.log("email already exists");
+        return res.json("email already exists");
+      } else {
+        console.log("creating");
+        db.User.create({
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          email: req.body.email,
+          password: req.body.password,
+          helper: req.body.helper,
+          member: req.body.member,
         });
+        // newUser.password = newUser.generateHash(req.body.password);
+        // newUser.save(function(err) {
+        //   if (err) throw err;
+        //   console.log("user saved!");
+        //   res.redirect(307, "/login");
+        // });
       }
     });
   });
@@ -61,7 +58,7 @@ module.exports = (app) => {
     });
   });
 
-  app.get("/profile", authMiddleware.isLoggedIn, function(req, res, next) {
+  app.get("/helper", authMiddleware.isLoggedIn, function(req, res, next) {
     res.json({
       email: req.email,
       loggedIn: true,
