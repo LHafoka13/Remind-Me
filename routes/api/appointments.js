@@ -12,7 +12,7 @@ module.exports = (app) => {
   });
 
   // POST route for saving a new appt
-  app.post("/api/helper/appointments", (req, res) => {
+  app.post("/api/appointments", (req, res) => {
     db.Appointments.create({
       title: req.body.title,
       startDate: req.body.startDate,
@@ -38,7 +38,7 @@ module.exports = (app) => {
   });
 
   // PUT route for updating appointments. We can get the updated todo data from req.body
-  app.put("/api/helper/appointments", (req, res) => {
+  app.put("/api/appointments", (req, res) => {
     db.Appointments.update(
       {
         title: req.body.title,
