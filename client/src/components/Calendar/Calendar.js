@@ -18,17 +18,6 @@ import {
   ConfirmationDialog,
 } from "@devexpress/dx-react-scheduler-material-ui";
 
-import Button from "@material-ui/core/Button";
-import Fab from "@material-ui/core/Fab";
-import IconButton from "@material-ui/core/IconButton";
-import AddIcon from "@material-ui/icons/Add";
-
-// Date.prototype.addHours = function(h) {
-//   this.setTime(this.getTime() + h * 60 * 60 * 1000);
-//   return this;
-// };
-
-
 const messages = {
   moreInformationLabel: "",
 };
@@ -42,6 +31,11 @@ const TextEditor = (props) => {
 };
 
 const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
+  console.log(appointmentData);
+
+  // appointmentData.startDate = appointmentData.startDate.toString();
+  // appointmentData.endDate = appointmentData.endDate.toString();
+
   const onCustomFieldChange = (nextValue) => {
     onFieldChange({ customField: nextValue });
   };
@@ -73,17 +67,13 @@ export default class Demo extends React.PureComponent {
     super(props);
 
     this.state = {
-      // data: appointments,
-      currentViewName: "month",
+      currentViewName: "week",
       addedAppointment: {},
       appointmentChanges: {},
       editingAppointment: undefined,
 
-  
-
       appointments: [],
     };
-
 
     this.currentViewNameChange = (currentViewName) => {
       this.setState({ currentViewName });
@@ -113,44 +103,86 @@ export default class Demo extends React.PureComponent {
   };
 
   changeAppointmentChanges(appointmentChanges) {
+    console.log("appointment change");
     this.setState({ appointmentChanges });
   }
 
+  //this runs when the appointment Form is opened
   changeEditingAppointment(editingAppointment) {
+    console.log("editing");
     this.setState({ editingAppointment });
   }
 
   commitChanges({ added, changed, deleted }) {
+    console.log("deleting");
     this.setState((state) => {
-      let { data } = state;
+      let { addedAppointment } = state;
+
+      let body = {
+        title: addedAppointment.title,
+        startDate: addedAppointment.startDate,
+        endDate: addedAppointment.endDate, //formatting on this item...
+        description: addedAppointment.description,
+        member: "Robby",
+        rRule: addedAppointment.rRule,
+        //   make this each box of the table?
+        //   can we use state here? or form submit?
+      };
+
+      console.log("----Body----");
+      console.log(body);
+
+      console.log("----State----");
+      console.log(state);
       if (added) {
-        const startingAddedId =
-          data.length > 0 ? data[data.length - 1].id + 1 : 0;
-        data = [...data, { id: startingAddedId, ...added }];
+        fetch("/api/helper/appointments", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body), //not sure which variable to capture here
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // const startingAddedId =
+            //   data.length > 0 ? data[data.length - 1].id + 1 : 0;
+            // data = [...data, { id: startingAddedId, ...added }];
+            this.getAppointments();
+          })
+          .catch((err) => console.error(err));
+        if (changed) {
+          data = data.map((appointment) =>
+            changed[appointment.id]
+              ? { ...appointment, ...changed[appointment.id] }
+              : appointment
+          );
+        }
+        if (deleted !== undefined) {
+          fetch("api/appointments/:id", {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            where: {
+              id: req.params.id,
+            },
+          }).then((response) => response.json());
+          // this.getAppointments();
+          console.log("deleted");
+          data = data.filter((appointment) => appointment.id !== deleted);
+        }
+        // return { data };
       }
-      if (changed) {
-        data = data.map((appointment) =>
-          changed[appointment.id]
-            ? { ...appointment, ...changed[appointment.id] }
-            : appointment
-        );
-      }
-      if (deleted !== undefined) {
-        data = data.filter((appointment) => appointment.id !== deleted);
-      }
-      return { data };
     });
   }
 
   render() {
     const {
-      data,
       currentViewName,
       addedAppointment,
       appointmentChanges,
       editingAppointment,
     } = this.state;
-    const { classes } = this.props;
 
     return (
       <Paper elevation={3} className="calendarHeight">
@@ -169,7 +201,7 @@ export default class Demo extends React.PureComponent {
             editingAppointment={editingAppointment}
             onEditingAppointmentChange={this.changeEditingAppointment}
           />
-          <WeekView startDayHour={9} endDayHour={19} />
+          <WeekView name="week" startDayHour={9} endDayHour={19} />
           <WeekView
             name="work-week"
             displayName="Work Week"
@@ -194,19 +226,6 @@ export default class Demo extends React.PureComponent {
             messages={messages}
           />
         </Scheduler>
-        <Fab
-          color="secondary"
-          onClick={() => {
-            this.setState({ editingFormVisible: true });
-            this.onEditingAppointmentChange(undefined);
-            this.onAddedAppointmentChange({
-              startDate: new Date(currentDate).setHours(startDayHour),
-              endDate: new Date(currentDate).setHours(startDayHour + 1),
-            });
-          }}
-        >
-          <AddIcon />
-        </Fab>
       </Paper>
     );
   }

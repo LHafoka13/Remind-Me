@@ -5,12 +5,12 @@ import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
+import Radio from "@material-ui/core/Radio";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -38,18 +38,14 @@ const useStyles = makeStyles((theme) => ({
 export default function RegistrationForm() {
   const classes = useStyles();
 
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [helper, setHelper] = useState();
 
   const [userObject, setUserObject] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
-    helper: false
+    helper: false,
+    member: false,
   })
 
  const handleInputChange = (event) => {
@@ -62,6 +58,7 @@ export default function RegistrationForm() {
       email: userObject.email,
       password: userObject.password,
       helper: userObject.helper,
+      member: userObject.member,
     };
     setUserObject(prevUserObject => ({...prevUserObject, [inputName]: userInput}))
   }
@@ -70,12 +67,26 @@ export default function RegistrationForm() {
     console.log(userObject);
   }, [userObject])
 
-  const handleChecked = (event) => {
-    setUserObject((prevUserObject) => ({
-      ...prevUserObject,
-      helper: event.target.checked
-    }));
-  }
+  const handleChange = (type) => {
+  
+    if (type === "helper") {
+       setUserObject((prevUserObject) => ({
+         ...prevUserObject,
+         helper: true,
+         member: false
+       }));
+    } else {
+         setUserObject((prevUserObject) => ({
+         ...prevUserObject,
+         helper: false,
+         member: true
+       }))
+    }
+  
+  };
+
+  
+
 
   return (
     <div>
@@ -111,7 +122,6 @@ export default function RegistrationForm() {
                     id="lastName"
                     label="Last Name"
                     name="lastName"
-                    // autoComplete="lname"
                     onChange={handleTextInput}
                   />
                 </Grid>
@@ -123,7 +133,6 @@ export default function RegistrationForm() {
                     id="email"
                     label="Email Address"
                     name="email"
-                    // autoComplete="email"
                     onChange={handleTextInput}
                   />
                 </Grid>
@@ -136,20 +145,18 @@ export default function RegistrationForm() {
                     label="Password"
                     type="password"
                     id="password"
-                    // autoComplete="current-password"
                     onChange={handleTextInput}
                   />
                 </Grid>
                 <Grid item xs={6}>
                   <FormControlLabel
-                    // name="helper"
-                    // onChange={handleTextInput}
+                    name="helper"
                     control={
-                      <Checkbox
+                      <Radio
+                        checked={userObject.helper}
+                        onChange={(e) => handleChange("helper")}
                         value={userObject.helper}
-                        color="primary"
                         name="helper"
-                        onChange={handleChecked}
                       />
                     }
                     label="Helper"
@@ -157,8 +164,16 @@ export default function RegistrationForm() {
                 </Grid>
                 <Grid item xs={3}>
                   <FormControlLabel
-                    control={<Checkbox value="individual" color="primary" />}
-                    label="Individual"
+                    name="member"
+                    control={
+                      <Radio
+                        checked={userObject.member}
+                        onChange={(e) => {handleChange("member")}}
+                        value={userObject.member}
+                        name="member"
+                      />
+                    }
+                    label="Member"
                   />
                 </Grid>
               </Grid>
