@@ -4,6 +4,7 @@ const db = require("../../models");
 const passport = require("../../config/passport");
 const authMiddleware = require("../../config/middleware/isAuthenticated");
 
+//post route for an existing user to login. Does this need to be a post??
 module.exports = (app) => {
   app.post(
     "/login",
@@ -54,6 +55,7 @@ module.exports = (app) => {
     });
   });
 
+  //error for user that hasn't signed up
   app.get("/unauthorized", function(req, res, next) {
     res.json({
       error: req.flash("error"),
@@ -61,6 +63,7 @@ module.exports = (app) => {
     });
   });
 
+  //deliver the user to their calendar page after login. Update to /calendar?
   app.get("/profile", authMiddleware.isLoggedIn, function(req, res, next) {
     res.json({
       email: req.email,

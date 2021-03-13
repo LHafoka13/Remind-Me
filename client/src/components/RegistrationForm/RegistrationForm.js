@@ -52,7 +52,7 @@ export default function RegistrationForm() {
     helper: false
   })
 
- const handleTextInput = (event) => {
+ const handleInputChange = (event) => {
     console.log(event);
     let userInput = event.target.value;
     let inputName = event.target.name;
@@ -99,7 +99,8 @@ export default function RegistrationForm() {
                     id="firstName"
                     label="First Name"
                     autoFocus
-                    onChange={handleTextInput}
+                    value={this.props.firstname}
+                    onChange={this.props.handleInputChange}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
