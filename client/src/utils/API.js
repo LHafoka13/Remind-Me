@@ -10,8 +10,21 @@ export default {
     return axios.post("/api/users/login", loginInfo);
   },
 
-  signup: function(signupInfo) {
-    return axios.post("/api/users/signup", signupInfo);
+  register: function(userData) {
+    console.log("user data", userData);
+    return fetch("http://localhost:3001/api/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        console.log(data);
+      });
   },
 
   isLoggedIn: function() {
