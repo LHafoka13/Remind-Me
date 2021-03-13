@@ -1,5 +1,4 @@
 import React from "react";
-import Calendar from "../components/Calendar/Calendar";
 import Container from "@material-ui/core/Container";
 import HelperHeader from "../components/HelperHeader/HelperHeader";
 import AccountAppBar from "../components/AppBars/AccountAppBar";
@@ -12,7 +11,6 @@ export default function Helper() {
       <Container>
         <HelperHeader />
         <AddButton />
-        <Calendar />
       </Container>
     </div>
   );

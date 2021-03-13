@@ -36,8 +36,6 @@ const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
   // appointmentData.startDate = appointmentData.startDate.toString();
   // appointmentData.endDate = appointmentData.endDate.toString();
 
-  console.log(appointmentData);
-
   const onCustomFieldChange = (nextValue) => {
     onFieldChange({ customField: nextValue });
   };
@@ -169,8 +167,9 @@ export default class Demo extends React.PureComponent {
               id: req.params.id,
             },
           }).then((response) => response.json());
-          this.getAppointments();
-          // data = data.filter((appointment) => appointment.id !== deleted);
+          // this.getAppointments();
+          console.log("deleted");
+          data = data.filter((appointment) => appointment.id !== deleted);
         }
         // return { data };
       }
