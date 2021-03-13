@@ -24,13 +24,14 @@ module.exports = (app) => {
 
   //post route for adding new user to the db
   app.post("/api/users", jsonParser, function(req, res, next) {
-    console.log("email", req.body);
+    // console.log("email", req.body);
     db.User.findOne({ where: { email: req.body.email } }).then((err, user) => {
+      if (err) console.log("something went awry"); " "
+      user = req.body
       console.log("we got here", user);
-      if (err) throw err;
       if (user) {
-        console.log("user already exists");
-        return res.json("user already exists");
+        console.log("email already exists");
+        return res.json("email already exists");
       } else {
         console.log("creating");
         db.User.create({
