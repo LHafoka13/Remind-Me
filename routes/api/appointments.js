@@ -13,6 +13,7 @@ module.exports = (app) => {
 
   // POST route for saving a new appt
   app.post("/api/appointments", (req, res) => {
+    console.log(req.body);
     db.Appointments.create({
       title: req.body.title,
       startDate: req.body.startDate,

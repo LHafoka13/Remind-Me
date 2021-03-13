@@ -27,14 +27,17 @@ export default {
   },
 
   postAppointments: function() {
-    return axios.post("/api/appointments", {
-      title: appointments.title,
-      startDate: appointments.startDate,
-      endDate: appointments.endDate, //formatting on this item...
-      description: appointments.description,
-      member: "Robby",
-      rRule: appointments.rRule,
-    });
+    return axios.post(
+      "/api/appointments"
+      // {
+      //   title: appointments.title,
+      //   startDate: appointments.startDate,
+      //   endDate: appointments.endDate, //formatting on this item...
+      //   description: appointments.description,
+      //   member: "Robby",
+      //   rRule: appointments.rRule,
+      // }
+    );
   },
 
   deleteAppointments: function(id) {
