@@ -15,13 +15,24 @@ const columns = [
 ];
 const rows = [{ name: "Robby", date: "03/13/2021", reminder: "Take Pills" }];
 
+const TableRow = ({ row, ...restProps }) => (
+  <Table.Row
+    {...restProps}
+    // eslint-disable-next-line no-alert
+    onClick={() => alert(JSON.stringify(row))}
+    style={{
+      cursor: "pointer",
+    }}
+  />
+);
+
 export default () => {
   return (
     <Paper>
       <Grid rows={rows} columns={columns}>
         <GroupingState grouping={[{ columnName: "name" }]} />
         <IntegratedGrouping />
-        <Table />
+        <Table rowComponent={TableRow} />
         <TableHeaderRow />
         <TableGroupRow />
       </Grid>
