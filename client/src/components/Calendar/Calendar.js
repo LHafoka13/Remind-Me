@@ -67,7 +67,7 @@ export default class Demo extends React.PureComponent {
     super(props);
 
     this.state = {
-      currentViewName: "month",
+      currentViewName: "week",
       addedAppointment: {},
       appointmentChanges: {},
       editingAppointment: undefined,
@@ -201,7 +201,7 @@ export default class Demo extends React.PureComponent {
             editingAppointment={editingAppointment}
             onEditingAppointmentChange={this.changeEditingAppointment}
           />
-          <WeekView startDayHour={9} endDayHour={19} />
+          <WeekView name="week" startDayHour={9} endDayHour={19} />
           <WeekView
             name="work-week"
             displayName="Work Week"
