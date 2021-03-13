@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -11,7 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Radio from "@material-ui/core/Radio";
-
+import API from "../../utils/API";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,11 +33,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
 export default function RegistrationForm() {
   const classes = useStyles();
-
 
   const [userObject, setUserObject] = useState({
     firstName: "",
@@ -46,9 +43,9 @@ export default function RegistrationForm() {
     password: "",
     helper: false,
     member: false,
-  })
+  });
 
- const handleTextInput = (event) => {
+  const handleTextInput = (event) => {
     console.log(event);
     let userInput = event.target.value;
     let inputName = event.target.name;
@@ -60,33 +57,36 @@ export default function RegistrationForm() {
       helper: userObject.helper,
       member: userObject.member,
     };
-    setUserObject(prevUserObject => ({...prevUserObject, [inputName]: userInput}))
-  }
-  
-  useEffect(() => {
-    console.log(userObject);
-  }, [userObject])
-
-  const handleChange = (type) => {
-  
-    if (type === "helper") {
-       setUserObject((prevUserObject) => ({
-         ...prevUserObject,
-         helper: true,
-         member: false
-       }));
-    } else {
-         setUserObject((prevUserObject) => ({
-         ...prevUserObject,
-         helper: false,
-         member: true
-       }))
-    }
-  
+    setUserObject((prevUserObject) => ({
+      ...prevUserObject,
+      [inputName]: userInput,
+    }));
   };
 
-  
+  useEffect(() => {
+    console.log(userObject);
+  }, [userObject]);
 
+  const handleChange = (type) => {
+    if (type === "helper") {
+      setUserObject((prevUserObject) => ({
+        ...prevUserObject,
+        helper: true,
+        member: false,
+      }));
+    } else {
+      setUserObject((prevUserObject) => ({
+        ...prevUserObject,
+        helper: false,
+        member: true,
+      }));
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    API.register(userObject).then(console.log(userObject));
+  };
 
   return (
     <div>
@@ -98,7 +98,7 @@ export default function RegistrationForm() {
             <Typography component="h1" variant="h5">
               Register an Account
             </Typography>
-            <form className={classes.form} noValidate>
+            <form className={classes.form} noValidate onSubmit={handleSubmit}>
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <TextField
@@ -167,7 +167,9 @@ export default function RegistrationForm() {
                     control={
                       <Radio
                         checked={userObject.member}
-                        onChange={(e) => {handleChange("member")}}
+                        onChange={(e) => {
+                          handleChange("member");
+                        }}
                         value={userObject.member}
                         name="member"
                       />
@@ -197,4 +199,3 @@ export default function RegistrationForm() {
     </div>
   );
 }
-    
