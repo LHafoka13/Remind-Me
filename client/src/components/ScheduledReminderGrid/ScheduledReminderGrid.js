@@ -24,29 +24,31 @@ const TableRow = ({ row, ...restProps }) => (
 
 export default () => {
   const [columns] = useState([
-    { name: "date", title: "Date" },
+    { name: "date", title: "Date & Time" },
     { name: "reminder", title: "Reminder" },
     { name: "member", title: "Member" },
+    { name: "notes", title: "Notes" },
   ]);
 
   const [rows, setRows] = useState([
-    { id: 1, date: "03/16/2021", reminder: "Eat Dinner", member: "Lindsay" },
-    { id: 2, date: "03/16/2021", reminder: "Take Trash Out", member: "Lily" },
+    {
+      id: 1,
+      date: "03/16/2021 5:00 PM",
+      reminder: "Eat Dinner",
+      notes: "",
+      member: "Lindsay",
+    },
+    {
+      id: 2,
+      date: "03/16/2021 9:00 PM",
+      reminder: "Take Trash Out",
+      notes: "",
+      member: "Lily",
+    },
   ]);
 
-  const commitChanges = ({ added, changed, deleted }) => {
+  const commitChanges = ({ changed, deleted }) => {
     let changedRows;
-    if (added) {
-      const startingAddedId =
-        rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
-      changedRows = [
-        ...rows,
-        ...added.map((row, index) => ({
-          id: startingAddedId + index,
-          ...row,
-        })),
-      ];
-    }
     if (changed) {
       changedRows = rows.map((row) =>
         changed[row.id] ? { ...row, ...changed[row.id] } : row
@@ -66,7 +68,7 @@ export default () => {
         <Table rowComponent={TableRow} />
         <TableHeaderRow />
         <TableEditRow />
-        <TableEditColumn showAddCommand showEditCommand showDeleteCommand />
+        <TableEditColumn showEditCommand showDeleteCommand />
       </Grid>
     </Paper>
   );
