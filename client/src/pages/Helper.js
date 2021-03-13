@@ -5,6 +5,7 @@ import AccountAppBar from "../components/AppBars/AccountAppBar";
 import ReminderButton from "../components/ReminderButton/ReminderButton";
 import TodayReminderGrid from "../components/TodayReminderGrid/TodayReminderGrid";
 import ScheduledReminderGrid from "../components/ScheduledReminderGrid/ScheduledReminderGrid";
+import AllReminderGrid from "../components/AllReminderGrid/AllReminderGrid";
 
 export default function Helper() {
   return (
@@ -19,6 +20,7 @@ export default function Helper() {
         <h4>Scheduled</h4>
         <ScheduledReminderGrid />
         <h4>All Reminders</h4>
+        <AllReminderGrid />
       </Container>
     </div>
   );

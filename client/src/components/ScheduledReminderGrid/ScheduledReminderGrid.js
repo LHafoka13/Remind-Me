@@ -12,14 +12,25 @@ const columns = [
   { name: "member", title: "Member" },
 ];
 const rows = [
-  { date: 0, reminder: "DevExtreme", member: "DevExpress" },
-  { date: 1, reminder: "DevExtreme Reactive", member: "DevExpress" },
+  { date: "03/16/2021", reminder: "Eat Dinner", member: "Lindsay" },
+  { date: "03/16/2021", reminder: "Take Trash Out", member: "Lily" },
 ];
+
+const TableRow = ({ row, ...restProps }) => (
+  <Table.Row
+    {...restProps}
+    // eslint-disable-next-line no-alert
+    onClick={() => alert(JSON.stringify(row))}
+    style={{
+      cursor: "pointer",
+    }}
+  />
+);
 
 export default () => (
   <Paper>
     <Grid rows={rows} columns={columns}>
-      <Table />
+      <Table rowComponent={TableRow} />
       <TableHeaderRow />
     </Grid>
   </Paper>
