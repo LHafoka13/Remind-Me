@@ -201,15 +201,7 @@ export default class Demo extends React.PureComponent {
             editingAppointment={editingAppointment}
             onEditingAppointmentChange={this.changeEditingAppointment}
           />
-          <WeekView name="week" startDayHour={9} endDayHour={19} />
-          <WeekView
-            name="work-week"
-            displayName="Work Week"
-            excludedDays={[0, 6]}
-            startDayHour={9}
-            endDayHour={19}
-          />
-          <MonthView name="month" />
+          <WeekView name="week" startDayHour={0} endDayHour={24} />
           <DayView />
           <AllDayPanel />
           <EditRecurrenceMenu />

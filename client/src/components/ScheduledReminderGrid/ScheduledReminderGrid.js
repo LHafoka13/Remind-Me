@@ -26,8 +26,8 @@ export default () => {
   const [columns] = useState([
     { name: "date", title: "Date & Time" },
     { name: "reminder", title: "Reminder" },
-    { name: "member", title: "Member" },
     { name: "notes", title: "Notes" },
+    { name: "member", title: "Member" },
   ]);
 
   const [rows, setRows] = useState([

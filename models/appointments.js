@@ -10,5 +10,13 @@ module.exports = (sequelize, DataTypes) => {
     rRule: DataTypes.STRING,
   });
 
+  Appointments.associate = (models) => {
+    Appointments.belongsTo(models.User, {
+      foreignKey: {
+        allowNull: false,
+      },
+    });
+  };
+
   return Appointments;
 };
