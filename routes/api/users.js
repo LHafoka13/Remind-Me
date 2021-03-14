@@ -26,7 +26,7 @@ module.exports = (app) => {
   app.post("/api/users", jsonParser, function(req, res, next) {
     // console.log("email", req.body);
     db.User.findOne({ where: { email: req.body.email } }).then((user, err) => {
-      if (err) console.log("something went awry", err); 
+      if (err) console.log("something went awry", err);
       console.log("we got here", user);
       if (user) {
         console.log("email already exists");
@@ -75,6 +75,18 @@ module.exports = (app) => {
     db.User.findAll({}).then((allUsers) => {
       console.log(JSON.parse(JSON.stringify(allUsers)));
       res.json(JSON.parse(JSON.stringify(allUsers)));
+    });
+  });
+
+  //GET Route for getting only Members in the member drop down
+  app.get("api/members", (req, res) => {
+    db.User.findAll({
+      where: {
+        member: 1,
+      },
+    }).then((allMembers) => {
+      console.log(JSON.parse(JSON.stringify(allMembers)));
+      res.json(JSON.parse(JSON.stringify(allMembers)));
     });
   });
 };
