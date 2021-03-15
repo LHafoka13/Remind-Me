@@ -1,22 +1,21 @@
-// fetch calls for appointment database in sql
-// const appointmentSelect = document.getElementById("category"); //button selector
+// // fetch calls for appointment database in sql
+// // const appointmentSelect = document.getElementById("category"); //button selector
 
-module.exports = {
-  // let users;
-
-  getUsers: function(req, res) {
-    fetch("/api/users", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("success in getting users:", data);
-        users = data;
-      })
-      .catch((error) => console.error("error:", error));
-  },
-};
+// module.exports = {
+//   // let users;
+//   // getUsers: function(req, res) {
+//   //   fetch("/api/users", {
+//   //     method: "GET",
+//   //     headers: { "Content-Type": "application/json" },
+//   //   })
+//   //     .then((response) => response.json())
+//   //     .then((data) => {
+//   //       console.log("success in getting users:", data);
+//   //       users = data;
+//   //     })
+//   //     .catch((error) => console.error("error:", error));
+//   // },
+// };
 // const deleteAppointment = (id) => {
 //   fetch(`/api/appointments/${id}`, {
 //     method: "DELETE",
