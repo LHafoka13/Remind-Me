@@ -93,11 +93,6 @@ export default function RegistrationForm() {
     }
   };
 
-  // const fetchStatus = async () => {
-  //   const response = await fetch("http://localhost:3001/api/users");
-  //   setStatus(response.data);
-  // };
- 
   const handleSubmit = (event) => {
     event.preventDefault();
     API.register(userObject);
