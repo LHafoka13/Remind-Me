@@ -23,15 +23,15 @@ export default function AppointmentForm(props) {
   // [member, setMember] = useState("");
 
   const [appointment, setAppointment] = useState({
-    date: "",
+    startDate: "",
     title: "",
     notes: "",
     UserId: "",
   });
 
-  const handleDatePicker = (date) => {
+  const handleDatePicker = (startDate) => {
     // console.log(event.target.value);
-    setAppointment({ ...appointment, date });
+    setAppointment({ ...appointment, startDate });
   };
 
   const handleTitle = (event) => {
