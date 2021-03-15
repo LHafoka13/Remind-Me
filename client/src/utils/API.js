@@ -34,4 +34,30 @@ export default {
   logout: function() {
     return axios.get("/api/users/logout");
   },
+
+  getAppointments: function() {
+    return axios.get("/api/appointments");
+  },
+
+  postAppointments: function() {
+    return axios.post(
+      "/api/appointments"
+      // {
+      //   title: appointments.title,
+      //   startDate: appointments.startDate,
+      //   endDate: appointments.endDate, //formatting on this item...
+      //   description: appointments.description,
+      //   member: "Robby",
+      //   rRule: appointments.rRule,
+      // }
+    );
+  },
+
+  deleteAppointments: function(id) {
+    return axios.delete("/api/appointments/" + id);
+  },
+
+  updateAppointments: function(id) {
+    return axios.put("/api/appointments/" + id);
+  },
 };

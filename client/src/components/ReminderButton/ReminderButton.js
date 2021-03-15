@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -22,7 +22,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TransitionsModal() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [appointments, setAppointments] = useState([]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -30,6 +31,54 @@ export default function TransitionsModal() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  useEffect(() => {
+    loadAppointments(appointments);
+  }, []);
+
+  function loadAppointments() {
+    // API.getAppointments()
+    //   .then((res) => setAppointments(res.data))
+    //   .catch((err) => console.log(err));
+
+    fetch("/api/appointments")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("success in getting appointments:", data);
+        setAppointments(data);
+      })
+      .catch((error) => console.error("error:", error));
+  }
+
+  console.log(appointments);
+
+  const handlePost = (appointment) => {
+    console.log(appointment);
+    let body = {
+      title: appointment.title,
+      startDate: appointment.date.toISOString(),
+      // endDate: appointment.endDate, //formatting on this item...
+      description: appointment.notes,
+      member: appointment.member,
+      // rRule: appointment.rRule,
+    };
+    console.log(body);
+    fetch("/api/appointments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body), //not sure which variable to capture here
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("appointment set:", data);
+        setAppointments(data);
+        // console.log(appointments);
+        handleClose();
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -56,8 +105,7 @@ export default function TransitionsModal() {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <AppointmentForm />
-            <Button onClick={handleClose}>Save</Button>
+            <AppointmentForm handlePost={handlePost} />
           </div>
         </Fade>
       </Modal>
