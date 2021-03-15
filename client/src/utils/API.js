@@ -20,7 +20,11 @@ export default {
       body: JSON.stringify(userData),
     })
       .then(function(response) {
-        return response.json();
+         console.log(response.status);
+         if (response.status == 402) {
+           alert("status received");
+         }
+         return response.json();
       })
       .then(function(data) {
         console.log(data);

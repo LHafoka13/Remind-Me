@@ -72,10 +72,10 @@ export default function RegistrationForm() {
     console.log(userObject);
   }, [userObject]);
 
-  useEffect(() => {
-    fetchStatus()
-    console.log(status)
-  }, [status])
+  // useEffect(() => {
+  //   fetchStatus()
+  //   console.log(status)
+  // }, [status])
 
   const handleChange = (type) => {
     if (type === "helper") {
@@ -102,14 +102,14 @@ export default function RegistrationForm() {
     event.preventDefault();
     API.register(userObject);
     event.target.reset();
-    // getBackend(userObject);
+  
   };
 
   // const getBackend = async (userObject) => {
   //   const response = await API.register(userObject);
-  //   if (!response.ok) {
-  //     console.log("status received");
-  //   }
+    // if (!response.status === 402) {
+    //   console.log("status received");
+    // }
   // }
 
   return (

@@ -31,6 +31,7 @@ module.exports = (app) => {
       console.log("we got here", user);
       if (user) {
         console.log("email already exists");
+        // alert("That email address is already in use")
         return res.status(422).send({
           error: "That email address is already in use",
         });
@@ -44,12 +45,7 @@ module.exports = (app) => {
           helper: req.body.helper,
           member: req.body.member,
         });
-        // newUser.password = newUser.generateHash(req.body.password);
-        // newUser.save(function(err) {
-        //   if (err) throw err;
-        //   console.log("user saved!");
-        //   res.redirect(307, "/login");
-        // });
+     
       }
     });
   });
