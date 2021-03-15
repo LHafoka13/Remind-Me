@@ -102,7 +102,7 @@ export default function RegistrationForm() {
     event.preventDefault();
     API.register(userObject);
     event.target.reset();
-  
+    
   };
 
   // const getBackend = async (userObject) => {
@@ -211,7 +211,7 @@ export default function RegistrationForm() {
               >
                 Register
               </Button>
-              <Alert className="alert" onChange={handleSubmit}>Hello</Alert>
+              <Alert id="alert" className="alert" onChange={handleSubmit}>Hello</Alert>
               <Grid container justify="flex-end">
                 <Grid item>
                   <Link to="/">Already have an account? Sign in</Link>

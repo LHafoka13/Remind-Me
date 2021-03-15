@@ -21,8 +21,9 @@ export default {
     })
       .then(function(response) {
          console.log(response.status);
-         if (response.status == 402) {
-           alert("status received");
+         if (response.status === 422) {
+           alert("Email already exists in the database. Please try again.");
+           
          }
          return response.json();
       })
