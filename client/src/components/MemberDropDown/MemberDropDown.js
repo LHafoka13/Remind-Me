@@ -46,16 +46,25 @@ export default function MemberDropDown() {
   return (
     <div>
       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-label">Member</InputLabel>
+        <InputLabel id="member-drop-down">Member</InputLabel>
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
+          labelId="member-drop-down"
+          id="member-list"
           value={members}
           onChange={handleChange}
         >
-          <MenuItem value={members[0]}>{members[0]}</MenuItem>
-          <MenuItem></MenuItem>
-          <MenuItem></MenuItem>
+          {members.map((member) => {
+            return (
+              <MenuItem
+                id={member.id}
+                value={member.id}
+                firstName={member.firstName}
+                lastName={member.lastName}
+              >
+                {member.firstName} {member.lastName}
+              </MenuItem>
+            );
+          })}
         </Select>
       </FormControl>
     </div>
