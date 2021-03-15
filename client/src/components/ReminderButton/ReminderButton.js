@@ -5,7 +5,6 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Button from "@material-ui/core/Button";
 import AppointmentForm from "../AppointmentForm/AppointmentForm";
-import API from "../../utils/API";
 
 const useStyles = makeStyles((theme) => ({
   modal: {

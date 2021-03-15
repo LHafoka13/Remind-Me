@@ -26,7 +26,7 @@ export default function AppointmentForm(props) {
     date: "",
     title: "",
     notes: "",
-    member: "",
+    UserId: "",
   });
 
   const handleDatePicker = (date) => {
@@ -64,7 +64,7 @@ export default function AppointmentForm(props) {
         value={appointment.notes}
         onChange={handleNotes}
       />
-      <MemberDropDown value={appointment.member} onChange={handleMember} />
+      <MemberDropDown value={appointment.UserId} onChange={handleMember} />
       <Button onClick={() => props.handlePost(appointment)}>Save</Button>
     </form>
   );
