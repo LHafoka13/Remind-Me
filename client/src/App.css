@@ -21,6 +21,10 @@ height: 100vh;
     height: 400px;
 }
 
+.alert {
+    display: none;
+}
+
 @media only screen and (min-width: 768px) {
 .background {
 background: #A770EF;  /* fallback for old browsers */
