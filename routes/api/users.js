@@ -26,15 +26,14 @@ module.exports = (app) => {
   app.post("/api/users", jsonParser, function(req, res, next) {
     // console.log("email", req.body);
     db.User.findOne({ where: { email: req.body.email } }).then((user, err) => {
-
-      if (err) console.log("something went awry"); 
+      if (err) console.log("something went awry");
 
       console.log("we got here", user);
       if (user) {
         console.log("email already exists");
         return res.status(422).send({
-          error: "That email address is already in use"
-        })
+          error: "That email address is already in use",
+        });
       } else {
         console.log("creating");
         db.User.create({
@@ -83,7 +82,7 @@ module.exports = (app) => {
   });
 
   //GET Route for getting only Members in the member drop down
-  app.get("api/members", (req, res) => {
+  app.get("/api/members", (req, res) => {
     db.User.findAll({
       where: {
         member: 1,
