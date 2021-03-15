@@ -83,7 +83,7 @@ module.exports = (app) => {
   });
 
   //GET Route for getting only Members in the member drop down
-  app.get("api/members", (req, res) => {
+  app.get("/api/members", (req, res) => {
     db.User.findAll({
       where: {
         member: 1,
