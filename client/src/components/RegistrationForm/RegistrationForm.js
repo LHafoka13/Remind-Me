@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {Alert} from "reactstrap"
 import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -12,6 +13,8 @@ import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Radio from "@material-ui/core/Radio";
 import API from "../../utils/API";
+
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -83,9 +86,17 @@ export default function RegistrationForm() {
     }
   };
 
+ 
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    API.register(userObject).then(console.log(userObject));
+    API.register(userObject).then((response) => {
+      if (response.ok) {
+        console.log("successfully registered");
+      }
+    });
+    // Popup.alert('hello');
+    
   };
 
   return (
@@ -187,6 +198,7 @@ export default function RegistrationForm() {
               >
                 Register
               </Button>
+              <Alert className="alert" onChange={handleSubmit}>Hello</Alert>
               <Grid container justify="flex-end">
                 <Grid item>
                   <Link to="/">Already have an account? Sign in</Link>
