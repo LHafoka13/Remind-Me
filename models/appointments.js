@@ -6,7 +6,6 @@ module.exports = (sequelize, DataTypes) => {
     // endDate: DataTypes.STRING,
     // time: { type: DataTypes.STRING, allowNull: false }, do we need to separate date and time?
     description: DataTypes.STRING,
-    member: DataTypes.STRING, //we can set this to a default value if we want, and option to change
     rRule: DataTypes.STRING,
   });
 
