@@ -20,7 +20,12 @@ export default {
       body: JSON.stringify(userData),
     })
       .then(function(response) {
-        return response.json();
+         console.log(response.status);
+         if (response.status === 422) {
+           alert("Email already exists in the database. Please try again.");
+           
+         }
+         return response.json();
       })
       .then(function(data) {
         console.log(data);
