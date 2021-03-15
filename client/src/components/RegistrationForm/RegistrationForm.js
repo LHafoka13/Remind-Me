@@ -48,6 +48,8 @@ export default function RegistrationForm() {
     member: false,
   });
 
+  const [status, setStatus] = useState([]);
+
   const handleTextInput = (event) => {
     console.log(event);
     let userInput = event.target.value;
@@ -70,6 +72,11 @@ export default function RegistrationForm() {
     console.log(userObject);
   }, [userObject]);
 
+  useEffect(() => {
+    fetchStatus()
+    console.log(status)
+  }, [status])
+
   const handleChange = (type) => {
     if (type === "helper") {
       setUserObject((prevUserObject) => ({
@@ -86,15 +93,24 @@ export default function RegistrationForm() {
     }
   };
 
+  // const fetchStatus = async () => {
+  //   const response = await fetch("http://localhost:3001/api/users");
+  //   setStatus(response.data);
+  // };
  
   const handleSubmit = (event) => {
     event.preventDefault();
     API.register(userObject);
     event.target.reset();
-  
-    // Popup.alert('hello');
-    
+    // getBackend(userObject);
   };
+
+  // const getBackend = async (userObject) => {
+  //   const response = await API.register(userObject);
+  //   if (!response.ok) {
+  //     console.log("status received");
+  //   }
+  // }
 
   return (
     <div>
