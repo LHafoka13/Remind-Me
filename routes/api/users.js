@@ -46,12 +46,7 @@ module.exports = (app) => {
           helper: req.body.helper,
           member: req.body.member,
         });
-        // newUser.password = newUser.generateHash(req.body.password);
-        // newUser.save(function(err) {
-        //   if (err) throw err;
-        //   console.log("user saved!");
-        //   res.redirect(307, "/login");
-        // });
+     
       }
     });
   });

@@ -72,10 +72,10 @@ export default function RegistrationForm() {
     console.log(userObject);
   }, [userObject]);
 
-  useEffect(() => {
-    fetchStatus()
-    console.log(status)
-  }, [status])
+  // useEffect(() => {
+  //   fetchStatus()
+  //   console.log(status)
+  // }, [status])
 
   const handleChange = (type) => {
     if (type === "helper") {
@@ -102,14 +102,14 @@ export default function RegistrationForm() {
     event.preventDefault();
     API.register(userObject);
     event.target.reset();
-    // getBackend(userObject);
+    
   };
 
   // const getBackend = async (userObject) => {
   //   const response = await API.register(userObject);
-  //   if (!response.ok) {
-  //     console.log("status received");
-  //   }
+    // if (!response.status === 402) {
+    //   console.log("status received");
+    // }
   // }
 
   return (
@@ -211,7 +211,7 @@ export default function RegistrationForm() {
               >
                 Register
               </Button>
-              <Alert className="alert" onChange={handleSubmit}>Hello</Alert>
+              <Alert id="alert" className="alert" onChange={handleSubmit}>Hello</Alert>
               <Grid container justify="flex-end">
                 <Grid item>
                   <Link to="/">Already have an account? Sign in</Link>
