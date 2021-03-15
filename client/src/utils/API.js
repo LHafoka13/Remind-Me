@@ -6,8 +6,22 @@ export default {
   },
 
   // logs in user
-  login: function(loginInfo) {
-    return axios.post("/api/users/login", loginInfo);
+  signin: function(email, password) {
+    return fetch("/api/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      email: email,
+      password: password,
+    })
+      .then(() => {
+        window.location.replace("/helpers");
+        // If there's an error, log the error
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 
   register: function(userData) {
@@ -22,8 +36,7 @@ export default {
       .then(function(response) {
          console.log(response.status);
          if (response.status === 422) {
-           alert("Email already exists in the database. Please try again.");
-           
+           alert("Email already exists in the database. Please try again.");  
          }
          return response.json();
       })
@@ -32,13 +45,13 @@ export default {
       });
   },
 
-  isLoggedIn: function() {
-    return axios.get("/api/users/profile");
-  },
+  // isSignedIn: function() {
+  //   return axios.get("/helper");
+  // },
 
-  logout: function() {
-    return axios.get("/api/users/logout");
-  },
+  // logout: function() {
+  //   return axios.get("/api/users/logout");
+  // },
 
   getAppointments: function() {
     return axios.get("/api/appointments");

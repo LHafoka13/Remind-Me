@@ -7,8 +7,9 @@ const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
 
 module.exports = (app) => {
+  //passport authenticate for signin
   app.post(
-    "/login",
+    "/signin",
     passport.authenticate("local", {
       failureRedirect: "/api/users/unauthorized",
       failureFlash: true,
@@ -16,8 +17,9 @@ module.exports = (app) => {
     function(req, res, next) {
       console.log("sign in successful");
       res.json({
+        //referencing the user model
         user: req.user,
-        loggedIn: true,
+        isSignedIn: true,
       });
     }
   );
@@ -56,16 +58,16 @@ module.exports = (app) => {
     });
   });
 
-  app.get("/helper", authMiddleware.isLoggedIn, function(req, res, next) {
+  app.get("/helper", authMiddleware.isSignedIn, function(req, res, next) {
     res.json({
       email: req.email,
       loggedIn: true,
     });
   });
 
-  app.get("/logout", authMiddleware.logoutUser, function(req, res, next) {
-    res.json("User logged out successfully");
-  });
+  // app.get("/logout", authMiddleware.logoutUser, function(req, res, next) {
+  //   res.json("User logged out successfully");
+  // });
 
   // GET route for getting all of the users
   // findAll returns all entries for a table when used with no options
