@@ -7,7 +7,8 @@ export default {
 
   // logs in user
   signin: function(email, password) {
-    return fetch("/api/users", {
+    console.log(email, password);
+    return fetch("http://localhost:3001/api/signin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -16,7 +17,7 @@ export default {
       password: password,
     })
       .then(() => {
-        window.location.replace("/helpers");
+        window.location.replace("/helper");
         // If there's an error, log the error
       })
       .catch((err) => {

@@ -37,20 +37,50 @@ export default function SignIn() {
   //Set components initial state
   const [users, setUsers] = useState([]);
 
+  // const [userEmail, setUserEmail] = useState("");
+  // const [userPassword, setUserPassword] = useState("");
+  const [userLogin, setUserLogin] = useState({
+    email: "",
+    password: ""
+  })
+
   //Load all users and store them with setUsers
-  useEffect(() => {
-    console.log(users);
-  }, [users]);
+  // useEffect(() => {
+  //   console.log(users);
+  // }, [users]);
+
+  // useEffect(() => {
+  //   loadUsers();
+  // }, []);
+
+  // // Loads all users and sets them to users
+  // function loadUsers() {
+  //   API.getUsers()
+  //     .then((res) => setUsers(res.data))
+  //     .catch((err) => console.log(err));
+  // }
+
+  const handleLoginInput = (event) => {
+    console.log(event);
+    let userInput = event.target.value;
+    let inputName = event.target.name;
+    let userCredential = {
+      email: userLogin.email,
+      password: userLogin.password
+    }
+    setUserLogin((prevUserLogin) => ({
+      ...prevUserLogin, 
+      [inputName]: userInput
+    }))
+  }
 
   useEffect(() => {
-    loadUsers();
-  }, []);
+    console.log(userLogin);
+  }, [userLogin])
 
-  // Loads all users and sets them to users
-  function loadUsers() {
-    API.getUsers()
-      .then((res) => setUsers(res.data))
-      .catch((err) => console.log(err));
+  const handleLogin = (event) => {
+    event.preventDefault();
+    API.signin(userLogin);
   }
 
   const classes = useStyles();
@@ -65,7 +95,7 @@ export default function SignIn() {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <form className={classes.form} noValidate>
+            <form className={classes.form} noValidate onSubmit={handleLogin}>
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -76,6 +106,7 @@ export default function SignIn() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                onChange={handleLoginInput}
               />
               <TextField
                 variant="outlined"
@@ -87,6 +118,7 @@ export default function SignIn() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={handleLoginInput}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -98,6 +130,7 @@ export default function SignIn() {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+                onSubmit={handleLogin}
               >
                 Sign In
               </Button>

@@ -9,9 +9,9 @@ const jsonParser = bodyParser.json();
 module.exports = (app) => {
   //passport authenticate for signin
   app.post(
-    "/signin",
+    "/api/signin",
     passport.authenticate("local", {
-      failureRedirect: "/api/users/unauthorized",
+      failureRedirect: "register",
       failureFlash: true,
     }),
     function(req, res, next) {
@@ -29,7 +29,6 @@ module.exports = (app) => {
     // console.log("email", req.body);
     db.User.findOne({ where: { email: req.body.email } }).then((user, err) => {
       if (err) console.log("something went awry");
-
       console.log("we got here", user);
       if (user) {
         console.log("email already exists");
