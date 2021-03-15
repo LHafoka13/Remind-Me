@@ -87,14 +87,11 @@ export default function RegistrationForm() {
   };
 
  
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    API.register(userObject).then((response) => {
-      if (response.ok) {
-        console.log("successfully registered");
-      }
-    });
+    API.register(userObject);
+    event.target.reset();
+  
     // Popup.alert('hello');
     
   };
