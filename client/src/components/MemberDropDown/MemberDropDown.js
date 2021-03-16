@@ -18,9 +18,11 @@ const useStyles = makeStyles((theme) => ({
 export default function MemberDropDown() {
   const classes = useStyles();
 
-  const [members, setMembers] = useState([]);
+  const [members, setMembers] = useState("");
 
-  const handleChange = async (event) => {
+  const [filteredMembers, setFilteredMembers] = useState("");
+
+  const handleChange = (event) => {
     // setMembers(event.target.value);
     //filter returns an array
     const selected = members.filter(
@@ -29,7 +31,7 @@ export default function MemberDropDown() {
     console.log(event.target.value);
     console.log(selected);
 
-    await setMembers(selected);
+    setFilteredMembers(selected);
   };
 
   useEffect(() => {
@@ -53,6 +55,8 @@ export default function MemberDropDown() {
     console.log("members:: ", members);
   }
 
+  // const arrToShow = filteredMembers.length > 0 ? filteredMembers : members;
+
   return (
     <div>
       <FormControl className={classes.formControl}>
@@ -60,7 +64,7 @@ export default function MemberDropDown() {
         <Select
           labelId="member-drop-down"
           id="member-list"
-          value={members}
+          value=""
           onChange={handleChange}
         >
           {members.length === 0 ? (
