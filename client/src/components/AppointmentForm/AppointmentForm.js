@@ -56,7 +56,7 @@ export default function AppointmentForm(props) {
         value={appointment.title}
         onChange={handleTitle}
       />
-      <DateTimePicker onChange={handleDatePicker} />
+      <DateTimePicker handleDateChange={handleDatePicker} />
       <TextField
         id="standard-textarea"
         label="Notes"
