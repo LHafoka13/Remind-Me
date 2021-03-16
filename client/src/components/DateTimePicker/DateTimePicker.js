@@ -12,8 +12,8 @@ export default function DateTimePicker(props) {
   // The first commit of Material-UI
   const [selectedDate, setSelectedDate] = React.useState(new Date());
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
+  const handleDateChange = (startDate) => {
+    setSelectedDate(startDate);
   };
 
   return (
