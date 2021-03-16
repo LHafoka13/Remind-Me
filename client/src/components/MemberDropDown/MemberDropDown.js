@@ -20,8 +20,16 @@ export default function MemberDropDown() {
 
   const [members, setMembers] = useState([]);
 
-  const handleChange = (event) => {
-    setMembers(event.target.value);
+  const handleChange = async (event) => {
+    // setMembers(event.target.value);
+    //filter returns an array
+    const selected = members.filter(
+      (member) => member.id === event.target.value
+    );
+    console.log(event.target.value);
+    console.log(selected);
+
+    await setMembers(selected);
   };
 
   useEffect(() => {
@@ -34,13 +42,15 @@ export default function MemberDropDown() {
 
   //loads members to the drop down
   function loadMembers() {
+    console.log("loadmembers function call");
     fetch("/api/members")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setMembers(data);
+        setMembers((prevMembers) => [...prevMembers, ...data]);
       })
       .catch((err) => console.log(err));
+    console.log("members:: ", members);
   }
 
   return (
@@ -53,18 +63,23 @@ export default function MemberDropDown() {
           value={members}
           onChange={handleChange}
         >
-          {members.map((member) => {
-            return (
-              <MenuItem
-                id={member.id}
-                value={member.id}
-                firstName={member.firstName}
-                lastName={member.lastName}
-              >
-                {member.firstName} {member.lastName}
-              </MenuItem>
-            );
-          })}
+          {members.length === 0 ? (
+            <p>loading...</p>
+          ) : (
+            members.map((member) => {
+              return (
+                <MenuItem
+                  id={member.id}
+                  value={member.id}
+                  // firstName={member.firstName}
+                  // lastName={member.lastName}
+                  key={member.id}
+                >
+                  {member.firstName} {member.lastName}
+                </MenuItem>
+              );
+            })
+          )}
         </Select>
       </FormControl>
     </div>
