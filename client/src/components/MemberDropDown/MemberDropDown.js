@@ -18,20 +18,18 @@ const useStyles = makeStyles((theme) => ({
 export default function MemberDropDown() {
   const classes = useStyles();
 
-  const [members, setMembers] = useState("");
+  const [members, setMembers] = useState([]);
 
-  const [filteredMembers, setFilteredMembers] = useState("");
+  const [member, setMember] = useState([]);
 
-  const handleChange = (event) => {
-    // setMembers(event.target.value);
+  const handleChange = async (event) => {
     //filter returns an array
     const selected = members.filter(
       (member) => member.id === event.target.value
     );
     console.log(event.target.value);
     console.log(selected);
-
-    setFilteredMembers(selected);
+    setMember(event.target.value);
   };
 
   useEffect(() => {
@@ -64,7 +62,7 @@ export default function MemberDropDown() {
         <Select
           labelId="member-drop-down"
           id="member-list"
-          value=""
+          value={member}
           onChange={handleChange}
         >
           {members.length === 0 ? (
@@ -72,13 +70,7 @@ export default function MemberDropDown() {
           ) : (
             members.map((member) => {
               return (
-                <MenuItem
-                  id={member.id}
-                  value={member.id}
-                  // firstName={member.firstName}
-                  // lastName={member.lastName}
-                  key={member.id}
-                >
+                <MenuItem value={member.id} key={member.id}>
                   {member.firstName} {member.lastName}
                 </MenuItem>
               );

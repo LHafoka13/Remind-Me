@@ -38,10 +38,6 @@ export default function TransitionsModal() {
   }, []);
 
   function loadAppointments() {
-    // API.getAppointments()
-    //   .then((res) => setAppointments(res.data))
-    //   .catch((err) => console.log(err));
-
     fetch("/api/appointments")
       .then((response) => response.json())
       .then((data) => {
@@ -61,6 +57,7 @@ export default function TransitionsModal() {
       // endDate: appointment.endDate, //formatting on this item...
       notes: appointment.notes,
       // rRule: appointment.rRule,
+      // UserId: Member.id
     };
     console.log(body);
     fetch("/api/appointments", {
