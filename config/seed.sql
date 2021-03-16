@@ -3,5 +3,5 @@ INSERT INTO appointments (title, startDate, description, rRule, createdAt, updat
 
 
 
-INSERT INTO users (firstName, lastName, email, password, helper, member, createdAt, updatedAt) VALUES ("tubby", "bordelon", "tubby@gmail.com", "meow", true, false, CURDATE(), CURDATE());
+INSERT INTO users (firstName, lastName, email, password, helper, member, createdAt, updatedAt) VALUES ("tubby", "bordelon", "tubby@gmail.com", "meow", false, true, CURDATE(), CURDATE());
 
