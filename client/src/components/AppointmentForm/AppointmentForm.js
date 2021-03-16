@@ -17,11 +17,6 @@ const useStyles = makeStyles((theme) => ({
 export default function AppointmentForm(props) {
   const classes = useStyles();
 
-  // [date, setDate] = useState("");
-  // [title, setTitle] = useState("");
-  // [notes, setNotes] = useState("");
-  // [member, setMember] = useState("");
-
   const [appointment, setAppointment] = useState({
     startDate: "",
     title: "",
@@ -30,8 +25,8 @@ export default function AppointmentForm(props) {
   });
 
   const handleDatePicker = (startDate) => {
-    // console.log(event.target.value);
-    setAppointment({ ...appointment, startDate });
+    console.log("Start Date:", startDate);
+    setAppointment({ ...appointment, startDate: startDate });
   };
 
   const handleTitle = (event) => {

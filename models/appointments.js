@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   Appointments.associate = (models) => {
     Appointments.belongsTo(models.User, {
       foreignKey: {
-        allowNull: false,
+        allowNull: true,
       },
     });
   };

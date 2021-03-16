@@ -59,7 +59,7 @@ export default function TransitionsModal() {
       title: appointment.title,
       startDate: appointment.startDate.toISOString(),
       // endDate: appointment.endDate, //formatting on this item...
-      description: appointment.notes,
+      notes: appointment.notes,
       // rRule: appointment.rRule,
     };
     console.log(body);
