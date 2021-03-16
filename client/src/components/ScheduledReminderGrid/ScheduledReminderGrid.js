@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Paper from "@material-ui/core/Paper";
 import { EditingState } from "@devexpress/dx-react-grid";
 import {
@@ -30,25 +30,38 @@ export default () => {
     { name: "member", title: "Member" },
   ]);
 
-  const [rows, setRows] = useState([
-    {
-      id: 1,
-      date: "03/16/2021 5:00 PM",
-      reminder: "Eat Dinner",
-      notes: "",
-      member: "Lindsay",
-    },
-    {
-      id: 2,
-      date: "03/16/2021 9:00 PM",
-      reminder: "Take Trash Out",
-      notes: "",
-      member: "Lily",
-    },
-  ]);
+  const [rows, setRows] = useState([]);
 
-  const commitChanges = ({ changed, deleted }) => {
+  useEffect(() => {
+    fetch("/api/members/appointments/2")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        data = data.map((data) => {
+          return {
+            date: data.Appointments[0].startDate,
+            reminder: data.Appointments[0].title,
+            notes: data.Appointments[0].description,
+            member: data.firstName + data.lastName,
+          };
+        });
+        setRows(data);
+      });
+  }, []);
+
+  const commitChanges = ({ added, changed, deleted }) => {
     let changedRows;
+    if (added) {
+      const startingAddedId =
+        rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
+      changedRows = [
+        ...rows,
+        ...added.map((row, index) => ({
+          id: startingAddedId + index,
+          ...row,
+        })),
+      ];
+    }
     if (changed) {
       changedRows = rows.map((row) =>
         changed[row.id] ? { ...row, ...changed[row.id] } : row

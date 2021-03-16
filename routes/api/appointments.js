@@ -11,18 +11,25 @@ module.exports = (app) => {
     db.Appointments.findAll({}).then((allAppts) => res.json(allAppts));
   });
 
+  //
+  app.get("/api/members/appointments/:id", (req, res) => {
+    db.User.findAll({
+      include: [{ model: db.Appointments }],
+      where: {
+        id: req.params.id,
+      },
+    }).then((allAppts) => res.json(allAppts));
+  });
+
   // POST route for saving a new appt
   app.post("/api/appointments", (req, res) => {
     console.log(req.body);
     db.Appointments.create({
       title: req.body.title,
       startDate: req.body.startDate,
-      endDate: req.body.endDate, //formatting on this item...
       description: req.body.description,
-      member: req.body.member,
       rRule: req.body.rRule,
-      //   make this each box of the table?
-      //   can we use state here? or form submit?
+      UserId: req.params.id,
     })
       .then((allAppts) => res.json(allAppts))
       .catch((err) => res.json(err));

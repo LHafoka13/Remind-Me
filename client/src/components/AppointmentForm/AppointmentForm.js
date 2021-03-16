@@ -38,7 +38,7 @@ export default function AppointmentForm(props) {
   };
 
   const handleMember = (event) => {
-    setAppointment({ ...appointment, member: event.target.value });
+    setAppointment({ ...appointment, UserId: event.target.value });
   };
 
   return (
