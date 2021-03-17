@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import DateTimePicker from "../DateTimePicker/DateTimePicker";
@@ -16,6 +16,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AppointmentForm(props) {
   const classes = useStyles();
+  const [userId, setUserId] = useState();
+  const [startDate, setstartDate] = useState();
+  const [title, setTitle] = useState();
+  const [notes, setNotes] = useState();
+
+  const submitForm = (e) => {
+    e.preventDefault();
+    const data = {
+      UserId: userId,
+      startDate: startDate,
+      title: title,
+      notes: notes,
+    };
+
+    //post
+    console.log("data: ", data);
+  };
 
   const [appointment, setAppointment] = useState({
     startDate: "",
@@ -42,7 +59,12 @@ export default function AppointmentForm(props) {
   };
 
   return (
-    <form className={classes.root} noValidate autoComplete="off">
+    <form
+      className={classes.root}
+      onSubmit={submitForm}
+      noValidate
+      autoComplete="off"
+    >
       <h4>Reminder Details</h4>
       <TextField
         id="standard-textarea"
@@ -51,7 +73,7 @@ export default function AppointmentForm(props) {
         value={appointment.title}
         onChange={handleTitle}
       />
-      <DateTimePicker handleDateChange={handleDatePicker} />
+      <DateTimePicker handleDateChange={setstartDate} handleTime={null} />
       <TextField
         id="standard-textarea"
         label="Notes"
@@ -59,8 +81,12 @@ export default function AppointmentForm(props) {
         value={appointment.notes}
         onChange={handleNotes}
       />
-      <MemberDropDown value={appointment.UserId} onChange={handleMember} />
-      <Button onClick={() => props.handlePost(appointment)}>Save</Button>
+      <MemberDropDown
+        setter={setUserId}
+        user={userId}
+        onChange={handleMember}
+      />
+      <Button type="submit">Save</Button>
     </form>
   );
 }

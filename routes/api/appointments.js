@@ -22,14 +22,23 @@ module.exports = (app) => {
   });
 
   // POST route for saving a new appt
-  app.post("/api/appointments", (req, res) => {
+  //THE BELOW IS WHAT WE NEED TO CHANGE THIS ROUTE TO???
+  //`/api/appointments/${appointment.User.User.Id}`
+  app.post(`/api/appointments`, (req, res) => {
     console.log(req.body);
     db.Appointments.create({
       title: req.body.title,
       startDate: req.body.startDate,
       description: req.body.description,
       rRule: req.body.rRule,
-      UserId: req.params.id,
+      include: [
+        {
+          model: db.User,
+          where: {
+            UserId: req.body.id,
+          },
+        },
+      ],
     })
       .then((allAppts) => res.json(allAppts))
       .catch((err) => res.json(err));

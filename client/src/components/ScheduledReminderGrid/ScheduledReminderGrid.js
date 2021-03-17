@@ -33,7 +33,7 @@ export default () => {
   const [rows, setRows] = useState("");
 
   useEffect(() => {
-    fetch("/api/members/appointments/2")
+    fetch("/api/members/appointments/3")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -50,6 +50,20 @@ export default () => {
         setRows(data);
       });
   }, []);
+
+  const commitChanges = ({ changed, deleted }) => {
+    let changedRows;
+    // if (added) {
+    //   const startingAddedId =
+    //     rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
+    //   changedRows = [
+    //     ...rows,
+    //     ...added.map((row, index) => ({
+    //       id: startingAddedId + index,
+    //       ...row,
+    //     })),
+    //   ];
+    // }
 
   console.log(rows);
 
@@ -72,6 +86,7 @@ export default () => {
 
   const commitChanges = ({ changed, deleted }) => {
     let changedRows;
+
 
     if (changed) {
       changedRows = rows.map((row) => {
