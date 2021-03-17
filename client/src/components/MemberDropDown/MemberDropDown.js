@@ -15,8 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MemberDropDown(props) {
-  console.log("asldkfja", props.value);
+export default function MemberDropDown({ user, setter }) {
   const classes = useStyles();
 
   const [members, setMembers] = useState([]);
@@ -58,19 +57,18 @@ export default function MemberDropDown(props) {
     <div>
       <FormControl className={classes.formControl}>
         <InputLabel id="member-drop-down">Member</InputLabel>
-        <Select
-          labelId="member-drop-down"
-          id="member-list"
-          value={member}
-          onChange={handleChange}
-        >
+        <Select labelId="member-drop-down" id="member-list" value={user}>
           {members.length === 0 ? (
             <p>loading...</p>
           ) : (
             members.map((member) => {
               console.log("member", member);
               return (
-                <MenuItem value={member.id} key={member.id}>
+                <MenuItem
+                  value={member.id}
+                  key={member.id}
+                  onChange={setter(member.id)}
+                >
                   {member.firstName} {member.lastName}
                 </MenuItem>
               );

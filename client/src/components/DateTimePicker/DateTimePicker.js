@@ -18,6 +18,7 @@ export default function DateTimePicker(props) {
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      {/* //TODO handle the onChange gracefully */}
       <Grid container justify="space-around">
         <KeyboardDatePicker
           margin="normal"
@@ -25,7 +26,7 @@ export default function DateTimePicker(props) {
           label="Date"
           format="MM/dd/yyyy"
           value={selectedDate}
-          onChange={props.handleDateChange}
+          onChange={props.handleDateChange(selectedDate)}
           KeyboardButtonProps={{
             "aria-label": "change date",
           }}
