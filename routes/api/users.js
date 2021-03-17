@@ -43,7 +43,7 @@ module.exports = (app) => {
     // db.User.findOne({ where: { email: req.body.username } }).then((res) => {
     //   console.log(res);
     // });
-    console.log("adlskfj;asdf", req.body);
+    console.log("users.js", req.body);
     passport.authenticate("local", (err, user, info) => {
       console.log(info);
       if (err) throw err;

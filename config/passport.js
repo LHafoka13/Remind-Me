@@ -16,10 +16,10 @@ module.exports = function(passport) {
         // When a user tries to sign in this code runs
         db.User.findOne({
           where: {
-            email: "tubby@gmail.com",
+            email: username,
           },
-        }).then((err, user) => {
-          console.log("lkjasdlfjkasdklfj", user);
+        }).then((user, err) => {
+          console.log("inside passport", user.dataValues);
           if (err) throw err;
           if (!user) return done(null);
           if (!user.validPassword(password)) {
