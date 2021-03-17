@@ -50,10 +50,10 @@ module.exports = (app) => {
     db.Appointments.update(
       {
         title: req.body.title,
-        dateTime: req.body.dateTime,
+        startDate: req.body.startDate,
         description: req.body.description,
-        member: req.body.member,
-        repeat: req.body.repeat,
+        rRule: req.body.rRule,
+        UserId: req.params.id,
       },
       {
         where: {
