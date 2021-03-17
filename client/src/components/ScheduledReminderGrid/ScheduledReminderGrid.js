@@ -30,19 +30,21 @@ export default () => {
     { name: "member", title: "Member" },
   ]);
 
-  const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState("");
 
   useEffect(() => {
     fetch("/api/members/appointments/3")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+
         data = data.map((data) => {
           return {
+            id: data.Appointments[0].id,
             date: data.Appointments[0].startDate,
             reminder: data.Appointments[0].title,
             notes: data.Appointments[0].description,
-            member: data.firstName + data.lastName,
+            member: data.firstName + " " + data.lastName,
           };
         });
         setRows(data);
@@ -62,14 +64,43 @@ export default () => {
     //     })),
     //   ];
     // }
+
+  console.log(rows);
+
+  const deleteAppointment = (id) => {
+    fetch(`/api/appointments/${id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    }).then((res) => console.log(res));
+  };
+
+  const updateAppointment = (appointment) => {
+    fetch(`/api/appointments`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(appointment),
+    }).then((response) => {
+      console.log(response); // set state?
+    });
+  };
+
+  const commitChanges = ({ changed, deleted }) => {
+    let changedRows;
+
+
     if (changed) {
-      changedRows = rows.map((row) =>
-        changed[row.id] ? { ...row, ...changed[row.id] } : row
-      );
+      changedRows = rows.map((row) => {
+        changed[row.id] ? { ...row, ...changed[row.id] } : row;
+
+        // updateAppointment(rows[0].id);
+      });
     }
     if (deleted) {
       const deletedSet = new Set(deleted);
-      changedRows = rows.filter((row) => !deletedSet.has(row.id));
+      changedRows = rows.filter((row) => {
+        !deletedSet.has(row.id);
+        deleteAppointment(rows[0].id);
+      });
     }
     setRows(changedRows);
   };

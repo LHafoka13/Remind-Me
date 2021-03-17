@@ -5,19 +5,30 @@ export default {
     return axios.get("/api/users");
   },
 
-  // logs in user
-  signin: function(email, password) {
-    console.log(email, password);
-    return fetch("http://localhost:3001/api/signin", {
+ 
+  //logs in user
+  signin: function(username, password, done) {
+    console.log(username);
+    console.log(password);
+    return fetch("http://localhost:3001/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      email: email,
-      password: password,
+
+      body: JSON.stringify({
+        username: username,
+        password: password
+      })
+      
+      // email: email,
+      // password: password,
     })
-      .then(() => {
-        window.location.replace("/helper");
+      .then((response) => {
+        console.log("here again");
+        console.log(response);
+        
+        // window.location.replace("/helper");
         // If there's an error, log the error
       })
       .catch((err) => {
@@ -46,13 +57,8 @@ export default {
       });
   },
 
-  // isSignedIn: function() {
-  //   return axios.get("/helper");
-  // },
-
-  // logout: function() {
-  //   return axios.get("/api/users/logout");
-  // },
+  
+  
 
   getAppointments: function() {
     return axios.get("/api/appointments");
