@@ -53,8 +53,6 @@ export default function MemberDropDown() {
     console.log("members:: ", members);
   }
 
-  // const arrToShow = filteredMembers.length > 0 ? filteredMembers : members;
-
   return (
     <div>
       <FormControl className={classes.formControl}>

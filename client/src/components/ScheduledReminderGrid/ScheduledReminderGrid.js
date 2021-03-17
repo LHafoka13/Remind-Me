@@ -49,19 +49,19 @@ export default () => {
       });
   }, []);
 
-  const commitChanges = ({ added, changed, deleted }) => {
+  const commitChanges = ({ changed, deleted }) => {
     let changedRows;
-    if (added) {
-      const startingAddedId =
-        rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
-      changedRows = [
-        ...rows,
-        ...added.map((row, index) => ({
-          id: startingAddedId + index,
-          ...row,
-        })),
-      ];
-    }
+    // if (added) {
+    //   const startingAddedId =
+    //     rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
+    //   changedRows = [
+    //     ...rows,
+    //     ...added.map((row, index) => ({
+    //       id: startingAddedId + index,
+    //       ...row,
+    //     })),
+    //   ];
+    // }
     if (changed) {
       changedRows = rows.map((row) =>
         changed[row.id] ? { ...row, ...changed[row.id] } : row

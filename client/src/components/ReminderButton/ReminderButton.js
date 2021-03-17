@@ -57,7 +57,7 @@ export default function TransitionsModal() {
       // endDate: appointment.endDate, //formatting on this item...
       notes: appointment.notes,
       // rRule: appointment.rRule,
-      // UserId: Member.id
+      // UserId: appointment.User.User.Id,
     };
     console.log(body);
     fetch("/api/appointments", {
