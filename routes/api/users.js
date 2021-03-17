@@ -8,41 +8,8 @@ const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
 
 module.exports = (app) => {
-  //passport authenticate for signin
-  // app.post(
-  //   "/api/login",
-
-  //   passport.authenticate("local"),
-  //   function(req, res) {
-  //     console.log("ima string");
-  //     res.json(req.user);
-  //   }
-  // );
-  //   function(email, password, done) {
-  //     db.User.findOne({ email: email }, (user, err) => {
-  //       if (err) {
-  //         console.log("error at findOne ")
-  //       }
-  //       if (!user) {
-  //         console.log("incorrect email")
-  //       }
-  //       if (!user.checkPassword(password)) {
-  //         console.log("password inccorec")
-  //       }
-  //     })
-  //     // console.log("sign in successful");
-  //     // res.json({
-  //     //   //referencing the user model
-  //     //   user: req.user,
-  //     //   isSignedIn: true,
-  //     // });
-  //   }
-  // );
   app.post("/api/login", (req, res, next) => {
-    // console.log(req.body);
-    // db.User.findOne({ where: { email: req.body.username } }).then((res) => {
-    //   console.log(res);
-    // });
+
     console.log("users.js", req.body);
     passport.authenticate("local", (err, user, info) => {
       console.log(info);
@@ -51,14 +18,15 @@ module.exports = (app) => {
       else {
         req.logIn(user, (err) => {
           if (err) throw err;
-          console.log('found user', user);
-          const { firstName, lastName, email } = user;
-          res.send({ firstName, lastName, email });
-          // console.log(req.user);
+          console.log('found user', user.dataValues);
+          const { firstName, lastName, email, helper } = user.dataValues;
+          console.log("settingUser", user.dataValues)
+          res.json({ firstName, lastName, email, helper });
         });
       }
     })(req, res, next);
   });
+
   //post route for adding new user to the db
   app.post("/api/users", jsonParser, function(req, res, next) {
     // console.log("email", req.body);
