@@ -29,7 +29,14 @@ module.exports = (app) => {
       startDate: req.body.startDate,
       description: req.body.description,
       rRule: req.body.rRule,
-      UserId: req.params.id,
+      include: [
+        {
+          model: db.User,
+          where: {
+            UserId: req.params.id,
+          },
+        },
+      ],
     })
       .then((allAppts) => res.json(allAppts))
       .catch((err) => res.json(err));
