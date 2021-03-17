@@ -50,14 +50,14 @@ export default function TransitionsModal() {
   console.log(appointments);
 
   const handlePost = (appointment) => {
-    console.log(appointment);
+    console.log("appointment: ", appointment);
     let body = {
       title: appointment.title,
       startDate: appointment.startDate.toISOString(),
       // endDate: appointment.endDate, //formatting on this item...
       notes: appointment.notes,
       // rRule: appointment.rRule,
-      UserId: appointment.User.User.Id,
+      UserId: appointment.UserId,
     };
     console.log(body);
     fetch("/api/appointments", {

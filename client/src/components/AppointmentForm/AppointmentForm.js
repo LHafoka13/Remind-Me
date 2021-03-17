@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import DateTimePicker from "../DateTimePicker/DateTimePicker";
@@ -16,6 +16,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AppointmentForm(props) {
   const classes = useStyles();
+  const [userId, setUserId] = useState("2");
+
+  // useEffect(() => {
+  //   console.log("current state of userId", userId);
+  // }, [userId]);
 
   const [appointment, setAppointment] = useState({
     startDate: "",
@@ -24,6 +29,10 @@ export default function AppointmentForm(props) {
     UserId: "",
   });
 
+  const submitForm = (e) => {
+    e.preventDefault();
+    console.log("user: ", userId);
+  };
   const handleDatePicker = (startDate) => {
     console.log("Start Date:", startDate);
     setAppointment({ ...appointment, startDate: startDate });
@@ -59,8 +68,12 @@ export default function AppointmentForm(props) {
         value={appointment.notes}
         onChange={handleNotes}
       />
-      <MemberDropDown value={appointment.UserId} onChange={handleMember} />
-      <Button onClick={() => props.handlePost(appointment)}>Save</Button>
+      <MemberDropDown
+        setter={setUserId}
+        value={userId}
+        onChange={handleMember}
+      />
+      <Button onClick={() => submitForm}>Save</Button>
     </form>
   );
 }

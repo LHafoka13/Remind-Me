@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MemberDropDown() {
+export default function MemberDropDown(props) {
+  console.log("asldkfja", props.value);
   const classes = useStyles();
 
   const [members, setMembers] = useState([]);
@@ -67,6 +68,7 @@ export default function MemberDropDown() {
             <p>loading...</p>
           ) : (
             members.map((member) => {
+              console.log("member", member);
               return (
                 <MenuItem value={member.id} key={member.id}>
                   {member.firstName} {member.lastName}
