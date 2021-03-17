@@ -1,5 +1,4 @@
 const passport = require("passport");
-
 const localStrategy = require("passport-local").Strategy;
 const db = require("../models");
 
@@ -26,7 +25,7 @@ module.exports = function(passport) {
           if (!user.validPassword(password)) {
             return done(null, false, { message: "Incorrect password" });
           }
-          console.log("inside passport", user.dataValues);
+          console.log("inside passport", user.datavalues);
           return done(null, user);
         });
         // (err, user) => {

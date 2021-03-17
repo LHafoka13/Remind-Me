@@ -27,15 +27,15 @@ export default {
       .then((response) => {
         console.log("here again");
         console.log(response)
-        if (user.helper === true) {
-          window.location.replace("/helper");
-        }
-        if (user.helper === false) {
-          window.location.replace("/member");
-        }
-        if (response.status === 204) {
-          alert("Account not found. Please register your account.")
-        }
+        // if (user.helper === true) {
+        //   window.location.replace("/helper");
+        // }
+        // if (user.helper === false) {
+        //   window.location.replace("/member");
+        // }
+        // if (response.status === 204) {
+        //   alert("Account not found. Please register your account.")
+        // }
         // else {
         //   alert("Email and password combination is wrong. Try again.");
         // }
