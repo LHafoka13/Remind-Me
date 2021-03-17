@@ -32,6 +32,13 @@ export default () => {
 
   const [rows, setRows] = useState([]);
 
+  const deleteAppointment = (id) => {
+    fetch(`/api/appointments/${id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    }).then((res) => console.log(res));
+  };
+
   const commitChanges = ({ added, changed, deleted }) => {
     let changedRows;
     if (added) {
@@ -52,7 +59,10 @@ export default () => {
     }
     if (deleted) {
       const deletedSet = new Set(deleted);
-      changedRows = rows.filter((row) => !deletedSet.has(row.id));
+      changedRows = rows.filter((row) => {
+        !deletedSet.has(row.id);
+        deleteAppointment(rows[0].id);
+      });
     }
     setRows(changedRows);
   };
