@@ -35,7 +35,7 @@ module.exports = (app) => {
         {
           model: db.User,
           where: {
-            UserId: req.params.id,
+            UserId: req.body.id,
           },
         },
       ],
