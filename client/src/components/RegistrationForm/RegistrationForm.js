@@ -54,14 +54,14 @@ export default function RegistrationForm() {
     console.log(event);
     let userInput = event.target.value;
     let inputName = event.target.name;
-    let user = {
-      firstName: userObject.firstName,
-      lastName: userObject.lastName,
-      email: userObject.email,
-      password: userObject.password,
-      helper: userObject.helper,
-      member: userObject.member,
-    };
+    // let user = {
+    //   firstName: userObject.firstName,
+    //   lastName: userObject.lastName,
+    //   email: userObject.email,
+    //   password: userObject.password,
+    //   helper: userObject.helper,
+    //   member: userObject.member,
+    // };
     setUserObject((prevUserObject) => ({
       ...prevUserObject,
       [inputName]: userInput,
