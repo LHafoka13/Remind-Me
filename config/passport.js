@@ -1,5 +1,5 @@
 const passport = require("passport");
-const bcrypt = require("bcryptjs");
+
 const localStrategy = require("passport-local").Strategy;
 const db = require("../models");
 
@@ -19,12 +19,14 @@ module.exports = function(passport) {
             email: username,
           },
         }).then((user, err) => {
-          console.log("inside passport", user.dataValues);
+          // console.log("inside passport", user.dataValues);
           if (err) throw err;
+          // user = user.dataValues;
           if (!user) return done(null);
           if (!user.validPassword(password)) {
             return done(null, false, { message: "Incorrect password" });
           }
+          console.log("inside passport", user.dataValues);
           return done(null, user);
         });
         // (err, user) => {
@@ -40,52 +42,7 @@ module.exports = function(passport) {
       }
     )
   );
-  // passport.use(
-  //   new LocalStrategy(
-  //     {
-  //       usernameField: "email",
-  //       passwordField: "password",
-  //     },
-  //     function(username, password, done) {
-  //       // When a user tries to sign in this code runs
-  //       db.User.findOne(
-  //         {
-  //           where: {
-  //             username: username,
-  //           },
-  //         },
-  //         function(err, user) {
-  //           if (err) throw err;
-  //           if (!user)
-  //             return done(null, false, {
-  //               message: "Incorrect email address",
-  //             });
-  //         }
-  //       );
-  // if (!user.validPassword(password)) {
-  //   return done(null, false, { message: "Incorrect password" });
-  //       }
-  //       return done(null, user);
-  //     }
-  //   )
-  // );
-  // If there's no user with the given email
-  // if (!dbUser) {
-  //   return done(null, false, {
-  //     message: "Incorrect email.",
-  //   });
-  // }
-  // If there is a user with the given email, but the password the user gives us is incorrect
-  // else if (!dbUser.validPassword(password)) {
-  //   return done(null, false, {
-  //     message: "Incorrect password.",
-  //   });
-  //       }
-  //       // If none of the above, return the user
-  //       return done(null, dbUser);
-  //     });
-  //   }
-  // )
+
 
   passport.serializeUser(function(user, done) {
     done(null, user.id);

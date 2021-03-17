@@ -51,9 +51,10 @@ module.exports = (app) => {
       else {
         req.logIn(user, (err) => {
           if (err) throw err;
-          console.log('found user', user);
-          const { firstName, lastName, email } = user;
-          res.send({ firstName, lastName, email });
+          console.log('found user', user.dataValues);
+          const { firstName, lastName, email, helper, member } = user.dataValues;
+          console.log("settingUser", user.dataValues)
+          res.send({ firstName, lastName, email, helper, member });
           // console.log(req.user);
         });
       }
