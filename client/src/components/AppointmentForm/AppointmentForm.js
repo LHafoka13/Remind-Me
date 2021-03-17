@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import DateTimePicker from "../DateTimePicker/DateTimePicker";
@@ -41,17 +41,18 @@ export default function AppointmentForm(props) {
     UserId: "",
   });
 
-  const handleDatePicker = (startDate) => {
+  const handleDateChange = (startDate) => {
     console.log("Start Date:", startDate);
     setAppointment({ ...appointment, startDate: startDate });
   };
 
   const handleTitle = (event) => {
-    setAppointment({ ...appointment, title: event.target.value });
+    // e.preventDefault();
+    setTitle(event.target.value);
   };
 
   const handleNotes = (event) => {
-    setAppointment({ ...appointment, notes: event.target.value });
+    setNotes(event.target.value);
   };
 
   const handleMember = (event) => {
@@ -70,7 +71,7 @@ export default function AppointmentForm(props) {
         id="standard-textarea"
         label="Title"
         multiline
-        value={appointment.title}
+        // value={appointment.title}
         onChange={handleTitle}
       />
       <DateTimePicker handleDateChange={setstartDate} handleTime={null} />
@@ -78,7 +79,6 @@ export default function AppointmentForm(props) {
         id="standard-textarea"
         label="Notes"
         multiline
-        value={appointment.notes}
         onChange={handleNotes}
       />
       <MemberDropDown
