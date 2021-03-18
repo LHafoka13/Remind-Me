@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -16,17 +16,16 @@ const useStyles = makeStyles(() => ({
 export default function NavBar() {
   const classes = useStyles();
 
+  // const [member, setMember] = useState("");
+
+  useEffect(() => {});
+
   return (
     <div className={classes.root} className="mt-3 mb-3">
       <AppBar position="static" spacing={2}>
         <Toolbar>
           <Typography variant="h4" className={classes.title}>
-            Welcome Helper Name!
-          </Typography>
-        </Toolbar>
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            You Have XX Reminders for XX Members
+            Welcome!
           </Typography>
         </Toolbar>
       </AppBar>

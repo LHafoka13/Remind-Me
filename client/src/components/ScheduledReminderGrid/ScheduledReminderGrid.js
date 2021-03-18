@@ -19,6 +19,7 @@ const TableRow = ({ row, ...restProps }) => (
     }}
   />
 );
+
 export default () => {
   const [columns] = useState([
     { name: "date", title: "Date & Time" },
@@ -27,10 +28,19 @@ export default () => {
     { name: "member", title: "Member" },
   ]);
   const [rows, setRows] = useState("");
+
+  // function formatDate(date) {
+  //   var d = new Date(date),
+  //     month = "" + (d.getMonth() + 1),
+  //     day = "" + d.getDate(),
+  //     year = d.getFullYear();
+  //   if (month.length < 2) month = "0" + month;
+  //   if (day.length < 2) day = "0" + day;
+  //   return [year, month, day].join("-");
+  // }
+
   useEffect(() => {
-
     fetch("/api/appointments/")
-
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -73,8 +83,11 @@ export default () => {
     if (deleted) {
       const deletedSet = new Set(deleted);
       changedRows = rows.filter((row) => {
+        // console.log(rows.indexOf() + 1);
+        // console.log(row.id);
         !deletedSet.has(row.id);
-        deleteAppointment(rows[0].id);
+        deleteAppointment(rows[rows.indexOf() + 1].id);
+        window.location.reload();
       });
     }
     setRows(changedRows);
@@ -86,7 +99,7 @@ export default () => {
         <Table rowComponent={TableRow} />
         <TableHeaderRow />
         <TableEditRow />
-        <TableEditColumn showEditCommand showDeleteCommand />
+        <TableEditColumn showDeleteCommand />
       </Grid>
     </Paper>
   );
