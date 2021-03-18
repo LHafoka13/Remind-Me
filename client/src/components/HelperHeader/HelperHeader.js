@@ -21,7 +21,7 @@ export default function NavBar() {
       <AppBar position="static" spacing={2}>
         <Toolbar>
           <Typography variant="h4" className={classes.title}>
-            Welcome Helper Name!
+            Welcome Helper!
           </Typography>
         </Toolbar>
         <Toolbar>
