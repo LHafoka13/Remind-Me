@@ -45,6 +45,15 @@ module.exports = (app) => {
       description: req.body.description,
       rRule: req.body.rRule,
       UserId: req.body.UserId,
+
+      include: [
+        {
+          model: db.User,
+          where: {
+            id: req.body.UserId,
+          },
+        },
+      ],
     })
       .then((allAppts) => res.json(allAppts))
       .catch((err) => {

@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MemberDropDown({ user, setter }) {
+export default function MemberDropDown({ user, setter, getUserId }) {
   const classes = useStyles();
 
   const [members, setMembers] = useState([]);
@@ -27,9 +27,10 @@ export default function MemberDropDown({ user, setter }) {
     const selected = members.filter(
       (member) => member.id === event.target.value
     );
-    console.log(event.target.value);
+    console.log("User Id selected: ", event.target.value);
     console.log(selected);
     setMember(event.target.value);
+    getUserId(event.target.value);
   };
 
   useEffect(() => {
@@ -57,18 +58,19 @@ export default function MemberDropDown({ user, setter }) {
     <div>
       <FormControl className={classes.formControl}>
         <InputLabel id="member-drop-down">Member</InputLabel>
-        <Select labelId="member-drop-down" id="member-list" value={user}>
+        <Select
+          labelId="member-drop-down"
+          id="member-list"
+          value={user}
+          onChange={getUserId}
+        >
           {members.length === 0 ? (
             <p>loading...</p>
           ) : (
             members.map((member) => {
               console.log("member", member);
               return (
-                <MenuItem
-                  value={member.id}
-                  key={member.id}
-                  onChange={setter(member.id)}
-                >
+                <MenuItem value={member.id} key={member.id}>
                   {member.firstName} {member.lastName}
                 </MenuItem>
               );

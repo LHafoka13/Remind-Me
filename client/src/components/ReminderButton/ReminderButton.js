@@ -41,7 +41,7 @@ export default function TransitionsModal() {
     fetch("/api/appointments")
       .then((response) => response.json())
       .then((data) => {
-        console.log("success in getting appointments:", data);
+        // console.log("success in getting appointments:", data);
         setAppointments(data);
       })
       .catch((error) => console.error("error:", error));
@@ -49,33 +49,33 @@ export default function TransitionsModal() {
 
   console.log(appointments);
 
-  const handlePost = (appointment) => {
-    console.log("appointment: ", appointment);
-    let body = {
-      title: appointment.title,
-      startDate: appointment.startDate.toISOString(),
-      // endDate: appointment.endDate, //formatting on this item...
-      notes: appointment.notes,
-      // rRule: appointment.rRule,
-      UserId: appointment.UserId,
-    };
-    console.log(body);
-    fetch("/api/appointments", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body), //not sure which variable to capture here
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("appointment set:", data);
-        setAppointments(data);
-        // console.log(appointments);
-        handleClose();
-      })
-      .catch((err) => console.error(err));
-  };
+  // const handlePost = (appointment) => {
+  //   console.log("appointment: ", appointment);
+  //   let body = {
+  //     title: appointment.title,
+  //     startDate: appointment.startDate.toISOString(),
+  //     // endDate: appointment.endDate, //formatting on this item...
+  //     notes: appointment.notes,
+  //     // rRule: appointment.rRule,
+  //     UserId: appointment.UserId,
+  //   };
+  //   console.log(body);
+  //   fetch("/api/appointments", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(body), //not sure which variable to capture here
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log("appointment set:", data);
+  //       setAppointments(data);
+  //       // console.log(appointments);
+  //       handleClose();
+  //     })
+  //     .catch((err) => console.error(err));
+  // };
 
   return (
     <div>
@@ -101,7 +101,7 @@ export default function TransitionsModal() {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <AppointmentForm handlePost={handlePost} />
+            <AppointmentForm />
           </div>
         </Fade>
       </Modal>
