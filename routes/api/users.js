@@ -58,12 +58,12 @@ module.exports = (app) => {
     });
   });
 
-  app.get("/helper", authMiddleware.isSignedIn, function(req, res, next) {
-    res.json({
-      email: req.email,
-      loggedIn: true,
-    });
-  });
+  // app.get("/helper", authMiddleware.isSignedIn, function(req, res, next) {
+  //   res.json({
+  //     email: req.email,
+  //     loggedIn: true,
+  //   });
+  // });
 
   // app.get("/logout", authMiddleware.logoutUser, function(req, res, next) {
   //   res.json("User logged out successfully");

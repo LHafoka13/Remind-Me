@@ -28,7 +28,9 @@ export default () => {
   ]);
   const [rows, setRows] = useState("");
   useEffect(() => {
+
     fetch("/api/appointments/")
+
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
