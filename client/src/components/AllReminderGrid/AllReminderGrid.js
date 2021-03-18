@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Paper from "@material-ui/core/Paper";
 import {
   GroupingState,
@@ -34,29 +34,25 @@ export default () => {
     { name: "reminder", title: "Reminder" },
     { name: "notes", title: "Notes" },
   ]);
-  const [rows] = useState([
-    {
-      id: 1,
-      name: "Robby",
-      date: "03/13/2021 1:00 PM",
-      reminder: "Take Pills",
-      notes: "all 5 pills",
-    },
-    {
-      id: 2,
-      name: "Robby",
-      date: "03/14/2021 2:00 PM",
-      reminder: "Take A Shower",
-      notes: "",
-    },
-    {
-      id: 3,
-      name: "Lindsay",
-      date: "03/17/2021 2:00 PM",
-      reminder: "Go To Park",
-      notes: "",
-    },
-  ]);
+  const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/appointments/bymember")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        data = data.map((data) => {
+          return {
+            id: data.id,
+            date: data.Appointments.startDate,
+            reminder: data.Appointments.title,
+            notes: data.Appointments.description,
+            member: data.firstName + " " + data.lastName,
+          };
+        });
+        setRows(data);
+      });
+  }, []);
 
   const deleteAppointment = (id) => {
     fetch(`/api/appointments/${id}`, {

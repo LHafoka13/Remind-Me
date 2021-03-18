@@ -19,7 +19,7 @@ export default function Helper() {
         <TodayReminderGrid />
         <h4>Scheduled</h4>
         <ScheduledReminderGrid />
-        <h4>All Reminders</h4>
+        <h4>Reminders By Member</h4>
         <AllReminderGrid />
       </Container>
     </div>

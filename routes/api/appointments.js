@@ -17,6 +17,16 @@ module.exports = (app) => {
     }).then((allAppts) => res.json(allAppts));
   });
 
+  app.get("api/appointments/bymember", (req, res) => {
+    db.User.findAll({
+      include: [
+        {
+          model: db.Appointments,
+        },
+      ],
+    }).then((allAppts) => res.json(allAppts));
+  });
+
   //
   app.get("/api/members/appointments/:id", (req, res) => {
     db.User.findAll({
