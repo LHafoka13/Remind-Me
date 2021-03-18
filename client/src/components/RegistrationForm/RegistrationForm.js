@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {Alert} from "reactstrap"
+import { Alert } from "reactstrap";
 import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -13,8 +13,6 @@ import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Radio from "@material-ui/core/Radio";
 import API from "../../utils/API";
-
-
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -97,14 +95,14 @@ export default function RegistrationForm() {
     event.preventDefault();
     API.register(userObject);
     event.target.reset();
-    
+    alert("Thank you for registering!");
   };
 
   // const getBackend = async (userObject) => {
   //   const response = await API.register(userObject);
-    // if (!response.status === 402) {
-    //   console.log("status received");
-    // }
+  // if (!response.status === 402) {
+  //   console.log("status received");
+  // }
   // }
 
   return (
@@ -206,7 +204,9 @@ export default function RegistrationForm() {
               >
                 Register
               </Button>
-              <Alert id="alert" className="alert" onChange={handleSubmit}>Hello</Alert>
+              <Alert id="alert" className="alert" onChange={handleSubmit}>
+                Hello
+              </Alert>
               <Grid container justify="flex-end">
                 <Grid item>
                   <Link to="/">Already have an account? Sign in</Link>
