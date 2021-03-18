@@ -95,18 +95,19 @@ export default {
     return axios.get("/api/appointments");
   },
 
-  postAppointments: function() {
-    return axios.post(
-      "/api/appointments"
-      // {
-      //   title: appointments.title,
-      //   startDate: appointments.startDate,
-      //   endDate: appointments.endDate, //formatting on this item...
-      //   description: appointments.description,
-      //   member: "Robby",
-      //   rRule: appointments.rRule,
-      // }
-    );
+  postAppointments: function(body) {
+    return fetch("/api/appointments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body), //not sure which variable to capture here
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("appointment set:", data);
+      })
+      .catch((err) => console.error(err));
   },
 
   deleteAppointments: function(id) {

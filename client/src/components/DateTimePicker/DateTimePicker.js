@@ -12,10 +12,6 @@ export default function DateTimePicker(props) {
   // The first commit of Material-UI
   const [selectedDate, setSelectedDate] = React.useState(new Date());
 
-  const handleDateChange = (startDate) => {
-    setSelectedDate(startDate);
-  };
-
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       {/* //TODO handle the onChange gracefully */}
@@ -36,7 +32,7 @@ export default function DateTimePicker(props) {
           id="start-time"
           label="Time"
           value={selectedDate}
-          onChange={props.handleDateChange}
+          onChange={props.handleTimeChange}
           KeyboardButtonProps={{
             "aria-label": "change time",
           }}
