@@ -26,7 +26,7 @@ export default function DateTimePicker(props) {
           label="Date"
           format="MM/dd/yyyy"
           value={selectedDate}
-          onChange={props.handleDateChange(selectedDate)}
+          onChange={props.handleDateChange}
           KeyboardButtonProps={{
             "aria-label": "change date",
           }}
