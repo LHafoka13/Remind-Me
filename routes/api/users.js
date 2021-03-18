@@ -1,7 +1,7 @@
 // Requiring our models
 
 const db = require("../../models");
-// const passport = require("../../config/passport");
+
 const passport = require("passport");
 const authMiddleware = require("../../config/middleware/isAuthenticated");
 const bodyParser = require("body-parser");
@@ -53,21 +53,10 @@ module.exports = (app) => {
 
   app.get("/unauthorized", function(req, res, next) {
     res.json({
-      // error: req.flash("error"),
       message: "user not authenticated",
     });
   });
 
-  // app.get("/helper", authMiddleware.isSignedIn, function(req, res, next) {
-  //   res.json({
-  //     email: req.email,
-  //     loggedIn: true,
-  //   });
-  // });
-
-  // app.get("/logout", authMiddleware.logoutUser, function(req, res, next) {
-  //   res.json("User logged out successfully");
-  // });
 
   // GET route for getting all of the users
   // findAll returns all entries for a table when used with no options

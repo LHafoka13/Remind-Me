@@ -40,7 +40,7 @@ export default {
         console.log(err);
       });
   },
-
+  //reigsters the user in the database
   register: function(userData) {
     console.log("user data", userData);
     return fetch("http://localhost:3001/api/users", {
@@ -61,7 +61,7 @@ export default {
         console.log(data);
       });
   },
-
+  
   getAppointments: function() {
     return axios.get("/api/appointments");
   },
