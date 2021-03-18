@@ -39,35 +39,6 @@ export default {
       .catch((err) => {
         console.log(err);
       });
-
-    //  .catch((err) => {
-    //   console.log(err);
-    // }),
-
-    // .catch((err) => {
-    //   console.log(err);
-    // .then((response) => {
-    //   console.log("here again");
-    //   console.log(response)
-    //   if (user.helper === true) {
-    //     window.location.replace("/helper");
-    //   }
-    //   if (user.helper === false) {
-    //     window.location.replace("/member");
-    //   }
-    //   if (response.status === 204) {
-    //     alert("Account not found. Please register your account.")
-    //   }
-    //   // else {
-    //   //   alert("Email and password combination is wrong. Try again.");
-    //   // }
-
-    //   // window.location.replace("/helper");
-    //   // If there's an error, log the error
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    // });
   },
 
   register: function(userData) {
