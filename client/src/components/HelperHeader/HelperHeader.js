@@ -26,6 +26,7 @@ export default function NavBar() {
         <Toolbar>
           <Typography variant="h4" className={classes.title}>
             Welcome!
+
           </Typography>
         </Toolbar>
       </AppBar>
