@@ -8,7 +8,13 @@ module.exports = (app) => {
   // GET route for getting all of the appointments
   // findAll returns all entries for a table when used with no options
   app.get("/api/appointments", (req, res) => {
-    db.Appointments.findAll({}).then((allAppts) => res.json(allAppts));
+    db.Appointments.findAll({
+      include: [
+        {
+          model: db.User,
+        },
+      ],
+    }).then((allAppts) => res.json(allAppts));
   });
 
   //
@@ -18,6 +24,13 @@ module.exports = (app) => {
       where: {
         id: req.params.id,
       },
+    }).then((allAppts) => res.json(allAppts));
+  });
+
+  //working GET route
+  app.get("/api/members/appointments/", (req, res) => {
+    db.User.findAll({
+      include: [{ model: db.Appointments }],
     }).then((allAppts) => res.json(allAppts));
   });
 

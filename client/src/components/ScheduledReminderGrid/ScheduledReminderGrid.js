@@ -29,20 +29,18 @@ export default () => {
   const [rows, setRows] = useState("");
   useEffect(() => {
 
-   
-
-    fetch("/api/members/appointments/2")
+    fetch("/api/appointments/")
 
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         data = data.map((data) => {
           return {
-            id: data.Appointments[0].id,
-            date: data.Appointments[0].startDate,
-            reminder: data.Appointments[0].title,
-            notes: data.Appointments[0].description,
-            member: data.firstName + " " + data.lastName,
+            id: data.id,
+            date: data.startDate,
+            reminder: data.title,
+            notes: data.description,
+            member: data.User.firstName + " " + data.User.lastName,
           };
         });
         setRows(data);
