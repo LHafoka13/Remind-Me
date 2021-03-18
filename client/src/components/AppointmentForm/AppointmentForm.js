@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import DateTimePicker from "../DateTimePicker/DateTimePicker";
 import MemberDropDown from "../MemberDropDown/MemberDropDown";
 import Button from "@material-ui/core/Button";
+import API from "../../utils/API";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,22 +25,17 @@ export default function AppointmentForm(props) {
   const submitForm = (e) => {
     e.preventDefault();
     const data = {
-      UserId: userId,
       startDate: startDate,
       title: title,
       notes: notes,
+      UserId: userId,
     };
 
     //post
     console.log("data: ", data);
-  };
 
-  const [appointment, setAppointment] = useState({
-    startDate: "",
-    title: "",
-    notes: "",
-    UserId: "",
-  });
+    API.postAppointments(data);
+  };
 
   const handleDateChange = (startDate) => {
     console.log("Start Date:", startDate);
