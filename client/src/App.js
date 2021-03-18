@@ -26,6 +26,8 @@ function App() {
             <Member />
           </Route>
         </Switch>
+        <Route path="/helper/:id" component={Helper} />
+        <Route path="/member/:id" component={Member} />
       </div>
     </Router>
     // </UserProvider>

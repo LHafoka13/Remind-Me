@@ -9,7 +9,6 @@ const jsonParser = bodyParser.json();
 
 module.exports = (app) => {
   app.post("/api/login", (req, res, next) => {
-
     console.log("users.js", req.body);
     passport.authenticate("local", (err, user, info) => {
       console.log(info);
@@ -18,10 +17,10 @@ module.exports = (app) => {
       else {
         req.logIn(user, (err) => {
           if (err) throw err;
-          console.log('found user', user.dataValues);
-          const { firstName, lastName, email, helper } = user.dataValues;
-          console.log("settingUser", user.dataValues)
-          res.json({ firstName, lastName, email, helper });
+          console.log("found user", user.dataValues);
+          const { id, firstName, lastName, email, helper } = user.dataValues;
+          console.log("settingUser", user.dataValues);
+          res.json({ id, firstName, lastName, email, helper });
         });
       }
     })(req, res, next);
