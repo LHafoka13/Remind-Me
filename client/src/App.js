@@ -5,11 +5,11 @@ import Register from "./pages/Register";
 import Helper from "./pages/Helper";
 import Member from "./pages/Member";
 import "./App.css";
-// import UserProvider from "./context";
+
 
 function App() {
   return (
-    // <UserProvider>
+   
     <Router>
       <div className="App">
         <Switch>
@@ -30,7 +30,7 @@ function App() {
         <Route path="/member/:id" component={Member} />
       </div>
     </Router>
-    // </UserProvider>
+ 
   );
 }
 
