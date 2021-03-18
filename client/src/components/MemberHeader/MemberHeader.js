@@ -16,6 +16,8 @@ const useStyles = makeStyles(() => ({
 export default function NavBar() {
   const classes = useStyles();
 
+  // const [member, setMember] = useState([]);
+
   return (
     <div className={classes.root} className="mt-3 mb-3">
       <AppBar position="static" spacing={2}>

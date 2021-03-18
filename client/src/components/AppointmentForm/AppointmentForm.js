@@ -83,6 +83,10 @@ export default function AppointmentForm(props) {
     setAppointment({ ...appointment, UserId: event.target.value });
   };
 
+  const refresh = () => {
+    window.location.reload();
+  };
+
   return (
     <form
       className={classes.root}
@@ -115,7 +119,9 @@ export default function AppointmentForm(props) {
         getUserId={handleUserId}
         onChange={handleMember}
       />
-      <Button type="submit">Save</Button>
+      <Button type="submit" onClick={refresh}>
+        Save
+      </Button>
     </form>
   );
 }
