@@ -95,7 +95,7 @@ export default {
     return axios.get("/api/appointments");
   },
 
-  postAppointments: function() {
+  postAppointments: function(body) {
     return fetch("/api/appointments", {
       method: "POST",
       headers: {
