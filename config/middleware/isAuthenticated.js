@@ -9,15 +9,15 @@ const auth = {
     }
   },
 
-  //   logoutUser: (req, res, next) => {
-  //     if (req.isAuthenticated()) {
-  //       console.log("logged out successfully");
-  //       req.logout();
-  //       next();
-  //     } else {
-  //       next();
-  //     }
-  //   },
+    logoutUser: (req, res, next) => {
+      if (req.isAuthenticated()) {
+        console.log("logged out successfully");
+        req.logout();
+        next();
+      } else {
+        next();
+      }
+    },
 };
 
 module.exports = auth;

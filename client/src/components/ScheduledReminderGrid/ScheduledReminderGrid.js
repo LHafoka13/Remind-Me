@@ -8,9 +8,7 @@ import {
   TableEditRow,
   TableEditColumn,
 } from "@devexpress/dx-react-grid-material-ui";
-
 const getRowId = (row) => row.id;
-
 const TableRow = ({ row, ...restProps }) => (
   <Table.Row
     {...restProps}
@@ -21,7 +19,6 @@ const TableRow = ({ row, ...restProps }) => (
     }}
   />
 );
-
 export default () => {
   const [columns] = useState([
     { name: "date", title: "Date & Time" },
@@ -29,15 +26,12 @@ export default () => {
     { name: "notes", title: "Notes" },
     { name: "member", title: "Member" },
   ]);
-
   const [rows, setRows] = useState("");
-
   useEffect(() => {
-    fetch("/api/members/appointments/3")
+    fetch("/api/members/appointments/")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-
         data = data.map((data) => {
           return {
             id: data.Appointments[0].id,
@@ -50,30 +44,13 @@ export default () => {
         setRows(data);
       });
   }, []);
-
-  const commitChanges = ({ changed, deleted }) => {
-    let changedRows;
-    // if (added) {
-    //   const startingAddedId =
-    //     rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
-    //   changedRows = [
-    //     ...rows,
-    //     ...added.map((row, index) => ({
-    //       id: startingAddedId + index,
-    //       ...row,
-    //     })),
-    //   ];
-    // }
-
   console.log(rows);
-
   const deleteAppointment = (id) => {
     fetch(`/api/appointments/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     }).then((res) => console.log(res));
   };
-
   const updateAppointment = (appointment) => {
     fetch(`/api/appointments`, {
       method: "PUT",
@@ -83,15 +60,11 @@ export default () => {
       console.log(response); // set state?
     });
   };
-
   const commitChanges = ({ changed, deleted }) => {
     let changedRows;
-
-
     if (changed) {
       changedRows = rows.map((row) => {
         changed[row.id] ? { ...row, ...changed[row.id] } : row;
-
         // updateAppointment(rows[0].id);
       });
     }
@@ -104,7 +77,6 @@ export default () => {
     }
     setRows(changedRows);
   };
-
   return (
     <Paper>
       <Grid rows={rows} columns={columns} getRowId={getRowId}>
