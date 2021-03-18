@@ -49,13 +49,14 @@ export default function AppointmentForm(props) {
       year = d.getFullYear();
     if (month.length < 2) month = "0" + month;
     if (day.length < 2) day = "0" + day;
-    return [month, day, year].join("/");
+    return [year, month, day].join("-");
   }
 
-  const handleDateChange = (startDate) => {
-    console.log("Start Date:", startDate);
-    setstartDate(formatDate(startDate));
-    console.log("New Start Date", formatDate(startDate));
+  const handleDateChange = (event) => {
+    console.log(formatDate(event));
+    console.log("Start Date:", event.target.value);
+    setstartDate(event.target.value);
+    console.log("New Start Date", formatDate(event.target.value));
   };
 
   const handleTimeChange = (startTime) => {
