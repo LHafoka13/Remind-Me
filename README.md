@@ -24,11 +24,11 @@ Development Contributions by:
 
 Lily'okalani Hafoka (contact information below)
 
-Lindsay Bordelon <a href="https://github.com/lcbordelon">Github</a>
+Lindsay Bordelon <a href="https://github.com/lcbordelon" target="_blank">Github</a>
 
-Robert Ray <a href="https://github.com/rgr5035">Github</a>
+Robert Ray <a href="https://github.com/rgr5035" target="_blank">Github</a>
 
-Shawn McPhee <a href="https://github.com/scmcphee9">Github</a>
+Shawn McPhee <a href="https://github.com/scmcphee9" target="_blank">Github</a>
 
 ## Questions
 
