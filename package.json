@@ -1,7 +1,6 @@
 {
   "name": "projectpractice",
   "version": "1.0.0",
-  "homepage": "https://blooming-reaches-88380.herokuapp.com/",
   "engines": {
     "node": "14.x"
   },
