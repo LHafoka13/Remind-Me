@@ -1,6 +1,7 @@
 {
   "name": "projectpractice",
   "version": "1.0.0",
+  "homepage": "https://blooming-reaches-88380.herokuapp.com/",
   "engines": {
     "node": "14.x"
   },
@@ -10,7 +11,7 @@
     "watch": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-    "start:prod": "server.js",
+    "start:prod": "node server.js",
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
     "client": "cd client && npm run start",
     "install": "cd client && npm install",
@@ -35,6 +36,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.0",
     "express-session": "^1.16.1",
+    "http-proxy-middleware": "^1.0.6",
     "mysql": "^2.18.1",
     "mysql2": "^1.7.0",
     "passport": "^0.4.1",
