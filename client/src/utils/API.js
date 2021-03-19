@@ -9,7 +9,7 @@ export default {
   signin: function(username, password, done) {
     console.log(username);
     console.log(password);
-    return fetch("http://localhost:3001/api/login", {
+    return fetch("/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export default {
   //reigsters the user in the database
   register: function(userData) {
     console.log("user data", userData);
-    return fetch("http://localhost:3001/api/users", {
+    return fetch("/api/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
