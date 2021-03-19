@@ -48,7 +48,7 @@ module.exports = function(passport) {
 
   // this is were you would add the custer user in req, first lastname don't send the has pass
   passport.deserializeUser(function(id, done) {
-    db.User.findById(id, function(err, user) {
+    db.User.findByPk(id, function(err, user) {
       done(err, user);
     });
   });
