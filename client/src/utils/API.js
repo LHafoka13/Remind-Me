@@ -30,6 +30,7 @@ export default {
       .then(function(data) {
         console.log(data);
         if (data.helper === true) {
+          console.log("LOOK HERE", data.id);
           window.location.replace(`/helper/${data.id}`);
         }
         if (data.helper === false) {
